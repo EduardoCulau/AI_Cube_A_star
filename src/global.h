@@ -16,21 +16,100 @@
 namespace ai {
 
 /**
- * Define the boat position
+ * Size of something
  */
-#define RIGHT false
-#define LEFT  true
+typedef unsigned int size_t;
 
 /**
- * Elements (missionaries or cannibals)
+ * Axis ( x or y or z)
  */
-typedef unsigned int 			  elem_t;
+typedef size_t		 axis_t;
 
 /**
- * Pair of elements <missionaries, cannibals>
- * Each side has some quantity of miss and cann.
+ * Position is a class that defines a 3D position.
+ * It has argument and method like:
+ *      ° X, Y, Z axis
+ *      ° getX, getY, getZ
+ *
+ * @author      Eduardo Culau
+ * @version     1.5
+ * @since       1.5
  */
-typedef std::pair<elem_t, elem_t> side_t;
+class Position
+{
+public:
+	/**
+     * Simplest constructor
+     *
+     * @return      an zero position.
+     */
+	Position(){ _x = 0; _y = 0; _z = 0};
+
+	/**
+     * Creates a positon, setting all the axis.
+     *
+     * @param  x         X axis
+     * @param  y         Y axis
+     * @param  z         Z axis
+     * @return Position  an object of class Position
+     */
+	Position(axis_t x, axis_t y, axis_t z){ _x = x; _y = y; _z = z;}
+
+	/**
+     * Creates a Position, copying an existing one
+     *
+     * @param  origin an existing Position
+     * @return State  an object of class Position
+     */
+	Position(const State &origin){
+		this->_x = origin.getX();
+		this->_y = origin.getY();
+		this->_z = origin.getZ();
+	}
+
+	/**
+     * Destructor
+     */
+	~Position();
+
+    /**
+     * Get X axis
+     *
+     * @return axis_t X axis
+     */
+    inline axis_t  getX() const { return _x; };
+
+    /**
+     * Get Y axis
+     *
+     * @return axis_t Y axis
+     */
+    inline axis_t  getY() const { return _y; };
+
+
+    /**
+     * Get Z axis
+     *
+     * @return axis_t Z axis
+     */
+    inline axis_t  getZ() const { return _z; };
+
+private:
+	/**
+     * X axis.
+     */ 
+	axis_t _x;
+
+	/**
+     * Y axis.
+     */ 
+	axis_t _y;
+
+	/**
+     * Z axis.
+     */ 
+	axis_t _z;
+};
 
 /**
  * An action is a movement of some quantity of miss and cann
