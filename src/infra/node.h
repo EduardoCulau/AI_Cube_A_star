@@ -156,7 +156,7 @@ private:
     /**
      * Cost of the Node
      */  
-    elem_t   _pathCost;
+    cost_t   _pathCost;
 
 };
 

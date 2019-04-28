@@ -65,23 +65,61 @@ public:
      *
      * @param size_t size of the cube.
      */
-    static size_t getSize (size_t size) { return get()->_size; };
+    inline static size_t getSize (size_t size) { return get()->_size; };
 
     /**
      * Get the percentage of blockeds
      *
      * @return size_t percentage of blockeds
      */
-    static size_t getPercent (size_t percent) { return get()->_percent; };
+    inline static size_t getPercent (size_t percent) { return get()->_percent; };
 
     /**
      * Get the percentage of blockeds
      *
      * @return obstruction3D_t& 3D cube
      */
-    static const obstruction3D_t& getCube () const { return get()->_cube; };
+    inline static const obstruction3D_t& getCube () { return get()->_cube; };
 
-    static bool isObstructed (axis_t x, axis_t y, axis_t z) const { return get()->_cube[x][y][z]; };
+    /**
+     * Check if position is obstructed.
+     *
+     * @return bool true if is obstructed else false.
+     */
+    inline static bool isObstructed (axis_t x, axis_t y, axis_t z) { return get()->_cube[x][y][z]; };
+
+    /**
+     * Check if position is obstructed.
+     *
+     * @return bool true if is obstructed else false.
+     */
+    inline static bool isObstructed (const Position &posit) { return get()->isObstructed( posit.getX(), posit.getY(), posit.getZ() ); };
+
+    /**
+     * Check if an axis is inside the axis of the cube.
+     *
+     * @return bool true if is inside else false.
+     */
+    inline static bool isAxisInside (axis_t &axi);
+
+    /**
+     * Check if a position is inside the cube.
+     *
+     * @return bool true if is inside else false.
+     */
+    inline static bool isPositionInside (const Position &posit);
+
+    /**
+     * Check if a position is inside the cube.
+     *
+     * @return bool true if is inside else false.
+     */
+    static bool canApplyAction (const Position &posit, const action_t &action);
+
+    /**
+     * Compute all valid actions.
+     */    
+    static actions_t computeValidActions();
 
 private:
 
@@ -105,14 +143,14 @@ private:
      *
      * @param size_t size of the cube.
      */
-    static void setSize (size_t size) { _size = size; };
+    static void setSize (size_t size) { get()->_size = size; };
 
     /**
      * Set the percentage of blockeds
      *
      * @param size_t percentage
      */
-    static void setPercent(size_t percent) { _percent = percent; };
+    static void setPercent(size_t percent) { get()->_percent = percent; };
 
     /**
      * Creates the cube whit the size specified.

@@ -18,12 +18,17 @@ namespace ai {
 /**
  * Size of something
  */
-typedef unsigned int size_t;
+typedef int 	size_t;
+
+/**
+ * Cost of something
+ */
+typedef float 	cost_t;
 
 /**
  * Axis ( x or y or z)
  */
-typedef size_t		 axis_t;
+typedef size_t	axis_t;
 
 /**
  * Position is a class that defines a 3D position.
@@ -39,28 +44,28 @@ class Position
 {
 public:
 	/**
-     * Simplest constructor
-     *
-     * @return      an zero position.
-     */
-	Position(){ _x = 0; _y = 0; _z = 0};
+	 * Simplest constructor
+	 *
+	 * @return      an zero position.
+	 */
+	Position() { _x = 0; _y = 0; _z = 0};
 
 	/**
-     * Creates a positon, setting all the axis.
-     *
-     * @param  x         X axis
-     * @param  y         Y axis
-     * @param  z         Z axis
-     * @return Position  an object of class Position
-     */
-	Position(axis_t x, axis_t y, axis_t z){ _x = x; _y = y; _z = z;}
+	 * Creates a positon, setting all the axis.
+	 *
+	 * @param  x         X axis
+	 * @param  y         Y axis
+	 * @param  z         Z axis
+	 * @return Position  an object of class Position
+	 */
+	Position(axis_t x, axis_t y, axis_t z) { _x = x; _y = y; _z = z;}
 
 	/**
-     * Creates a Position, copying an existing one
-     *
-     * @param  origin an existing Position
-     * @return State  an object of class Position
-     */
+	 * Creates a Position, copying an existing one
+	 *
+	 * @param  origin an existing Position
+	 * @return State  an object of class Position
+	 */
 	Position(const State &origin){
 		this->_x = origin.getX();
 		this->_y = origin.getY();
@@ -68,113 +73,112 @@ public:
 	}
 
 	/**
-     * Destructor
-     */
+	 * Destructor
+	 */
 	~Position();
 
-    /**
-     * Get X axis
-     *
-     * @return axis_t X axis
-     */
-    inline axis_t  getX() const { return _x; };
+	/**
+	 * Get X axis
+	 *
+	 * @return axis_t X axis
+	 */
+	inline axis_t  getX() const { return _x; };
 
-    /**
-     * Get Y axis
-     *
-     * @return axis_t Y axis
-     */
-    inline axis_t  getY() const { return _y; };
+	/**
+	 * Get Y axis
+	 *
+	 * @return axis_t Y axis
+	 */
+	inline axis_t  getY() const { return _y; };
 
 
-    /**
-     * Get Z axis
-     *
-     * @return axis_t Z axis
-     */
-    inline axis_t  getZ() const { return _z; };
+	/**
+	 * Get Z axis
+	 *
+	 * @return axis_t Z axis
+	 */
+	inline axis_t  getZ() const { return _z; };
+
+	/**
+	 * Set X axis
+	 */
+	inline void setX(axis_t x) { _x = x; };
+
+	/**
+	 * Set Y axis
+	 */
+	inline void setY(axis_t y) { _y = y; };
+
+	/**
+	 * Set Z axis
+	 */
+	inline void setZ(axis_t z) { _z = z; };
+
 
 private:
 	/**
-     * X axis.
-     */ 
+	 * X axis.
+	 */ 
 	axis_t _x;
 
 	/**
-     * Y axis.
-     */ 
+	 * Y axis.
+	 */ 
 	axis_t _y;
 
 	/**
-     * Z axis.
-     */ 
+	 * Z axis.
+	 */ 
 	axis_t _z;
 };
 
 /**
- * An action is a movement of some quantity of miss and cann
+ * An action is a postion with the direction to move.
  */
-typedef side_t                    action_t;
-
-/**
- * Two sides <left Side, Right Side> of the river
- */
-typedef std::pair<side_t, side_t> sides_t;
+typedef Position 				action_t;
 
 /**
  * A bunch of action
  */
-typedef std::vector<action_t>     actions_t;
-
-using namespace ai;
+typedef std::vector<action_t>	actions_t;
 
 /**
- * Template to operator + usend to std::pair. 
+ * Template to operator + usend to Positon 
  */
-template <typename T, typename U>
-std::pair<T,U> operator+ (const std::pair<T,U> &lhs, const std::pair<T,U> &rhs) {   
-    return std::make_pair(lhs.first + rhs.first, lhs.second + rhs.second);
+Position operator+ (const Position &lhs, const Position &rhs) {   
+	return Position(lhs.getX() + rhs.getX(), lhs.getY() + rhs.getY(), lhs.getZ() + rhs.getZ());
 }
 
 /**
- * Template to operator - usend to std::pair. 
+ * Template to operator - usend to Positon 
  */
-template <typename T, typename U>
-std::pair<T,U> operator- (const std::pair<T,U> &lhs, const std::pair<T,U> &rhs) {   
-    return std::make_pair(lhs.first - rhs.first, lhs.second - rhs.second);
+Position operator- (const Position &lhs, const Position &rhs) {   
+	return Position(lhs.getX() - rhs.getX(), lhs.getY() - rhs.getY(), lhs.getZ() - rhs.getZ());
 }
 
 /**
- * Template to operator += usend to std::pair. 
+ * Template to operator += usend to Positon. 
  */
-template <typename T, typename U>
-std::pair<T,U>& operator+= (std::pair<T,U> &lhs, const std::pair<T,U> &rhs) {
-    lhs.first += rhs.first; lhs.second += rhs.second;
-    return lhs;   
+Position& operator+= (Position &lhs, const Position &rhs) {
+	lhs.setX(lhs.getX() + rhs.getX()); lhs.setY(lhs.getY() + rhs.getY()); lhs.setZ(lhs.getZ() + rhs.getZ());
+	return lhs;   
 }
 
 /**
- * Template to operator -= usend to std::pair. 
+ * Template to operator += usend to Positon. 
  */
-template <typename T, typename U>
-std::pair<T,U>& operator-= (std::pair<T,U> &lhs, const std::pair<T,U> &rhs) {   
-    lhs.first -= rhs.first; lhs.second -= rhs.second;
-    return lhs;   
+Position& operator-= (Position &lhs, const Position &rhs) {
+	lhs.setX(lhs.getX() - rhs.getX()); lhs.setY(lhs.getY() - rhs.getY()); lhs.setZ(lhs.getZ() - rhs.getZ());
+	return lhs;   
 }
 
 /**
- * Template to operator << (print) usend to std::pair. 
+ * Template to operator << (print) usend to Position. 
  */
-template <typename T, typename U>
-std::ostream& operator<< (std::ostream &out, const std::pair<T,U> &side) {
-    out <<"< " << side.first << " , " << side.second << " >";
-    return out;
+std::ostream& operator<< (std::ostream &out, const Position &rhs) {
+	out <<"< " << rhs.getX() << " , " << rhs.getY() << " , " << rhs.getZ() << side.second << " >";
+	return out;
 }
-
-/**
- * Make a pair. 
- */
-#define M_PAIR(lhs, rhs) std::make_pair(lhs, rhs)
 
 }
 

@@ -6,26 +6,28 @@ Solver *Solver::_instance = 0;
 
 solution_t Solver::Breadth_First_Search (){
     //Inital node
-    Node* node = new Node(Problem::getInitialState(), 0);
+    Node* node = new Node(problem.getInitialState(), 0);
     Node* child;
 
+    deque_t frontier;
+
     //Inital Test.
-    if( Problem::goalTest(node->getState()) ){
-        solution_t result; result.push_back(new Node(NULL, Problem::getGoalState(), M_PAIR(0,0), 0));
+    if( problem.goalTest(node->getState()) ){
+        solution_t result; result.push_back(new Node(NULL, problem.getGoalState(), M_PAIR(0,0), 0));
         return result; //Nothing to be done
     }
 
     //Add node to the fifo
-    get()->frontier.push_back(node);
+    frontier.push_back(node);
     //Empty explored.
 
     //Loop over the problem space.
     while( true ){
-        if( get()->frontier.empty() ) return Solution(NULL);
+        if( frontier.empty() ) return Solution(NULL);
 
         //Remove from queue.
-        node = get()->frontier.front(); get()->frontier.pop_front();
-        get()->explored.push_back(node);
+        node = frontier.front(); frontier.pop_front();
+        explored.push_back(node);
 
         #ifdef PRINT_EXEC
              Node::printCurrentNode(node);
@@ -33,7 +35,7 @@ solution_t Solver::Breadth_First_Search (){
         #endif
 
         //Apply all action
-        for(auto action : Problem::actions(node->getState())){
+        for(auto action : problem.actions(node->getState())){
             child = Node::childNode(node, action);
 
             #ifdef PRINT_EXEC
@@ -41,9 +43,61 @@ solution_t Solver::Breadth_First_Search (){
             #endif
 
             //Test if the node is not in explored or frontier the
-            if( !stateFind(get()->frontier, child->getState()) and !stateFind(get()->explored, child->getState()) ){
-                if( Problem::goalTest(child->getState()) ) return Solution(child);
-                get()->frontier.push_back(child);
+            if( !stateFind(frontier, child->getState()) and !stateFind(explored, child->getState()) ){
+                if( problem.goalTest(child->getState()) ) return Solution(child);
+                frontier.push_back(child);
+            }else{
+                child->~Node();
+            }
+        }
+
+        #ifdef PRINT_EXEC
+            Node::printChieldNode_End();
+        #endif
+    }
+
+}
+
+solution_t Solver::A_Star (){
+    //Inital node
+    Node* node = new Node(problem.getInitialState(), 0);
+    Node* child;
+
+    //Inital Test.
+    if( problem.goalTest(node->getState()) ){
+        solution_t result; result.push_back(new Node(NULL, problem.getGoalState(), M_PAIR(0,0), 0));
+        return result; //Nothing to be done
+    }
+
+    //Add node to the fifo
+    frontier.push_back(node);
+    //Empty explored.
+
+    //Loop over the problem space.
+    while( true ){
+        if( frontier.empty() ) return Solution(NULL);
+
+        //Remove from queue.
+        node = frontier.front(); frontier.pop_front();
+        explored.push_back(node);
+
+        #ifdef PRINT_EXEC
+             Node::printCurrentNode(node);
+             Node::printChieldNode_Start();
+        #endif
+
+        //Apply all action
+        for(auto action : problem.actions(node->getState())){
+            child = Node::childNode(node, action);
+
+            #ifdef PRINT_EXEC
+                Node::printChieldNode(child);
+            #endif
+
+            //Test if the node is not in explored or frontier the
+            if( !stateFind(frontier, child->getState()) and !stateFind(explored, child->getState()) ){
+                if( problem.goalTest(child->getState()) ) return Solution(child);
+                frontier.push_back(child);
             }else{
                 child->~Node();
             }

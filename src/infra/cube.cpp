@@ -48,3 +48,36 @@ void Cube::fillObstructionsCube(){
 
     }
 }
+
+actions_t Cube::computeValidActions() {
+    actions_t validActions;
+    /* RIGHT >*/
+    validActions.emplace_back( 1,  0,  0);
+    /* LEFT <*/
+    validActions.emplace_back(-1,  0,  0);
+    /* FRONT x*/
+    validActions.emplace_back( 0,  1,  0);
+    /* BACK .*/
+    validActions.emplace_back( 0, -1,  0);
+    /* UP ^*/
+    validActions.emplace_back( 0,  0,  1);
+    /* DOWN v*/
+    validActions.emplace_back( 0,  0, -1);
+
+    return validActions;
+}
+
+bool Cube::isAxisInside (axis_t &axi){
+    return ( axi >= 0 && axi < get()->getSize() );
+}
+
+bool Cube::isPositionInside (const Position &posit){
+    return ( get()->isAxisInside(posit.getX()) && get()->isAxisInside(posit.getY()) && get()->isAxisInside(posit.getZ()) );
+}
+
+bool Cube::canApplyAction (const Position &posit, const action_t &action){
+    /* Aplly the action */
+    Position result = posit + action;
+    /* Check if is inside the cube and if is not obstructed */
+    return ( get()->isPositionInside(result) && !get()->isObstructed(result) );
+}

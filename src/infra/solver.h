@@ -10,7 +10,13 @@ namespace ai {
 /**
  * Deque to store the Nodes pointers.
  */
-typedef std::deque<Node*>  store_t;
+typedef std::deque<Node*>  deque_t;
+
+/**
+ * Priority queue to store the Nodes pointers.
+ */
+typedef std::priority_queue<Node*>  deque_t;
+
 
 /**
  * Vector of Node pointers which are the solution.
@@ -24,33 +30,28 @@ typedef std::vector<const Node*> solution_t;
  *      ° Frontier
  *      ° Explored
  *      ° Breadth_First_Search
+ *      ° A*
  *
  * @author      Eduardo Culau
- * @version     1.5
+ * @version     1.6
  * @since       1.4
  */
 class Solver
 {
 public:
-
-    /**
-     * Return the current instance or create one if it don't exist.
-     *
-     * @return Solver* Setting pointer
-     */
-    static Solver* get(){
-        if ( !_instance ) {
-            _instance = new Solver;
-        }
-        return _instance;
-    }        
-
     /**
      * Applies the Breadth First Search on the problem and solve it.
      *
      * @return solution_t solution of the problem
      */
-    static solution_t Breadth_First_Search ();
+    solution_t Breadth_First_Search ();
+
+    /**
+     * Applies the A* on the problem and solve it.
+     *
+     * @return solution_t solution of the problem.
+     */
+    solution_t A_Star ();
 
     /**
      * Travel back to the origin to get all solution nodes.
@@ -58,14 +59,18 @@ public:
      * @param  node       pointer of the last node
      * @return solution_t solution of the problem
      */
-    static solution_t Solution (const Node* node);
-
-private:
+    solution_t Solution (const Node* node);
 
     /**
-     * The single instance of the class.
-     */   
-    static Solver *_instance;
+     * Travel back to the origin to get all solution nodes.
+     *
+     * @param  node       pointer of the last node
+     * @return solution_t solution of the problem
+     */
+    const Problem& getProblem () const {return _problem;}
+
+
+private:
 
     /**
      * Private Constructor 
@@ -86,14 +91,14 @@ private:
     static bool stateFind (const store_t& dq, const State& state);
 
     /**
-     * Deque to store the Nodes* in the frontier. Used to solve the problem.
-     */  
-    store_t frontier;
-
-    /**
      * Deque to store the Nodes* that was explored. Used to solve the problem.
      */  
-    store_t explored;
+    deque_t explored;
+
+    /**
+     * Problem to be solved.
+     */  
+    Problem problem;
 };
 
 }
