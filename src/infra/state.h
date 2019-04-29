@@ -75,7 +75,7 @@ public:
     void setPosition (const Position &posit);
 
     /**
-     * Aplly an action, cange the positon of the State
+     * Aplly an action, cange the positon of the State, without checking if is valid.
      *
      * @param  action movement to be done
      */ 

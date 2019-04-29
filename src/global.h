@@ -114,6 +114,12 @@ public:
 	 */
 	inline void setZ(axis_t z) { _z = z; }
 
+	/**
+	 * Operator ==
+	 */
+	inline bool operator== (const Position &rhs) {   
+		return (this->getX() == rhs.getX() && this->getY() == rhs.getY() && this->getZ() == rhs.getZ());
+	}
 
 private:
 	/**
@@ -142,22 +148,23 @@ typedef Position 				action_t;
  */
 typedef std::vector<action_t>	actions_t;
 
+
 /**
- * Template to operator + usend to Positon 
+ * Operator + usend to Positon 
  */
 Position operator+ (const Position &lhs, const Position &rhs) {   
 	return Position(lhs.getX() + rhs.getX(), lhs.getY() + rhs.getY(), lhs.getZ() + rhs.getZ());
 }
 
 /**
- * Template to operator - usend to Positon 
+ * Operator - usend to Positon 
  */
 Position operator- (const Position &lhs, const Position &rhs) {   
 	return Position(lhs.getX() - rhs.getX(), lhs.getY() - rhs.getY(), lhs.getZ() - rhs.getZ());
 }
 
 /**
- * Template to operator += usend to Positon. 
+ * Operator += usend to Positon. 
  */
 Position& operator+= (Position &lhs, const Position &rhs) {
 	lhs.setX(lhs.getX() + rhs.getX()); lhs.setY(lhs.getY() + rhs.getY()); lhs.setZ(lhs.getZ() + rhs.getZ());
@@ -165,7 +172,7 @@ Position& operator+= (Position &lhs, const Position &rhs) {
 }
 
 /**
- * Template to operator += usend to Positon. 
+ * Operator += usend to Positon. 
  */
 Position& operator-= (Position &lhs, const Position &rhs) {
 	lhs.setX(lhs.getX() - rhs.getX()); lhs.setY(lhs.getY() - rhs.getY()); lhs.setZ(lhs.getZ() - rhs.getZ());
@@ -173,7 +180,7 @@ Position& operator-= (Position &lhs, const Position &rhs) {
 }
 
 /**
- * Template to operator << (print) usend to Position. 
+ * Operator << (print) usend to Position. 
  */
 std::ostream& operator<< (std::ostream &out, const Position &rhs) {
 	out <<"< " << rhs.getX() << " , " << rhs.getY() << " , " << rhs.getZ() << " >";

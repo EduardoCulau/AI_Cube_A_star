@@ -88,16 +88,20 @@ public:
             if( arg == "-h") {
                 Setting::setHelp();
 
-            /* Numer of cannibals */
-            } else if( arg == "-m" && i < argc ) {
+            /* Size of the cube */
+            } else if( arg == "-c" && i < argc ) {
                 Setting::missionaries(std::atoi(argv[i++]));
 
-            /* Numer of cannibals */
-            } else if( arg == "-c" && i < argc ) {
+            /* Percentage of obstructions */
+            } else if( arg == "-o" && i < argc ) {
                 Setting::cannibals(std::atoi(argv[i++]));
 
-            /* Boat capacity */
-            } else if( arg == "-bc" && i < argc ) {
+            /* Number of paths */
+            } else if( arg == "-p" && i < argc ) {
+                Setting::boatCapacity(std::atoi(argv[i++]));
+
+            /* Number of threads */
+            } else if( arg == "-t" && i < argc ) {
                 Setting::boatCapacity(std::atoi(argv[i++]));
 
             } else {
@@ -119,19 +123,20 @@ public:
 
         if( Setting::getHelp() ){
             std::cout<<"    Program Argumments  "<<std::endl
-                     <<"-m  [INT] : number of missionaries"<<std::endl
-                     <<"-c  [INT] : number of cannibals"<<std::endl
-                     <<"-bc [INT] : capacity of the boat"<<std::endl
-                     <<"-h        : show this text"<<std::endl;
+                     <<"-c [INT] : size of the cube"<<std::endl
+                     <<"-o [INT] : percentage of obstructions"<<std::endl
+                     <<"-p [INT] : number of paths"<<std::endl
+                     <<"-t [INT] : number of threads"<<std::endl
+                     <<"-h       : show this text"<<std::endl;
             return false;
         }
 
         /* Check arguments values */
-        if( get()->_missionaries < 1 ){
-            std::cout<<"Must to have at least 1 missionary."<<std::endl; valid = false;
+        if( get()->_cubeSize < 3 ){
+            std::cout<<"The cube musto to be at least 3x3x3."<<std::endl; valid = false;
         }
 
-        if( get()->_cannibals < 1 ){
+        if( get()->_ < 1 ){
             std::cout<<"Must to have at least 1 cannibal."<<std::endl; valid = false;
         }
 
@@ -179,17 +184,22 @@ private:
     /**
      * Number of missionaries.
      */
-    size_t  _missionaries = 0;
+    size_t  _cubeSize = 0;
 
     /**
      * Number of cannibals.
      */    
-    size_t  _cannibals    = 0;
+    size_t  _obstructions = 0;
 
     /**
      * Boar capacity.
      */ 
-    size_t  _boatCapacity = 0;
+    size_t  _paths = 0;
+
+    /**
+     * Boar capacity.
+     */ 
+    size_t  _threads = 0;
 
     /**
      * Show help text.
