@@ -31,7 +31,7 @@ public:
     Node() {
         this->_parent   = NULL;
         this->_pathCost = 0;
-        this->_action   = M_PAIR(0,0);
+        this->_action   = action_t();
     }
 
     /**
@@ -41,7 +41,7 @@ public:
      * @param  pathCost cost of the node
      * @return Node     an object of class Node
      */
-    Node(const State& state, const elem_t pathCost);
+    Node(const State& state, const size_t pathCost);
 
     /**
      * Creates a Node, setting the parent, state, action and the path Cost.
@@ -52,7 +52,7 @@ public:
      * @param  pathCost cost of the node
      * @return Node     an object of class Node
      */
-    Node(Node* parent, const State& state, const action_t& action, const elem_t pathCost);
+    Node(Node* parent, const State& state, const action_t& action, const size_t pathCost);
 
     /**
      * Creates a Node, setting the parent and action.
@@ -79,9 +79,9 @@ public:
     /**
      * Get the path cost of the node.
      *
-     * @return elem_t pathCost of the node
+     * @return size_t pathCost of the node
      */
-    elem_t getPathCost()        const{ return _pathCost; }
+    size_t getPathCost()        const{ return _pathCost; }
 
     /**
      * Get the parent node of the node.

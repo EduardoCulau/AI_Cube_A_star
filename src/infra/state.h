@@ -27,31 +27,29 @@ public:
      * @return      an empty State.
      */
     State (){
-        this->_rightSide = M_PAIR(0,0);
-        this->_leftSide  = M_PAIR(0,0);
+        this->_position = Position();
+    }
+
+    /**
+     * Creates a State, setting the element to a specific position
+     *
+     * @param  posit position in the 3D cube
+     * @return State an object of class State
+     */
+    State(const Position &posit){
+        this->setPosition(posit);
     }
 
     /**
      * Creates a State, setting the element to a specific side defined by the boat position
      *
-     * @param  side         pair of elements <missionaries, cannibals>
-     * @param  boatPosition position of the boat (which side is it)
-     * @return State        an object of class State
+     * @param  x     x axis
+     * @param  y     y axis
+     * @param  z     z axis
+     * @return State an object of class State
      */
-    State(const side_t &side, bool boatPosition){
-        this->setData(side, boatPosition);
-    }
-
-    /**
-     * Creates a State, setting the element to a specific side defined by the boat position
-     *
-     * @param  miss         number of missionaries
-     * @param  elem_t       number of cannibals
-     * @param  boatPosition position of the boat (which side is it)
-     * @return State        an object of class State
-     */
-    State(elem_t miss, elem_t cann, bool boatPosition){
-        State(side_t(miss, cann), boatPosition);
+    State(axis_t x, axis_t y, axis_t z){
+        State(Position(x,y,z));
     }
 
     /**
@@ -61,10 +59,7 @@ public:
      * @return State  an object of class State
      */
     State(const State &origin){
-        sides_t sides       = origin.getSides();
-        this->_leftSide     = sides.first;
-        this->_rightSide    = sides.second;
-        this->_boatPosition = origin.getBoatPosition();
+        this->_position = origin.getPosition();
     }
 
     /**
@@ -73,100 +68,34 @@ public:
     ~State() {}
 
     /**
-     * Set the side and a boat positon to the state.
+     * Set the positon to the state.
      *
-     * @param  side         pair of elements <missionaries, cannibals>
-     * @param  boatPosition position of the boat (which side is it)
+     * @param  posit 3D position of the state
      */    
-    void setData (const side_t &side, bool boatPosition);
+    void setPosition (const Position &posit);
 
     /**
-     * Set the number of missionaries, cannibals and
-     * the boat positon to the state.
+     * Aplly an action, cange the positon of the State
      *
-     * @param  miss         number of missionaries
-     * @param  cann         number of cannibals
-     * @param  boatPosition position of the boat (which side is it)
-     */   
-    void setData (elem_t miss, elem_t cann, bool boatPosition);
-
-    /**
-     * Move elements to right side of the river.
-     *
-     * @param  action elements to be moved
+     * @param  action movement to be done
      */ 
-    void    move2Right  (const action_t &action);
-
-    /**
-     * Move elements to left side of the river.
-     *
-     * @param  action elements to be moved
-     */ 
-    void    move2Left   (const action_t &action);
-
-    /**
-     * Move elements to the opposite side of the river
-     * based in boat position.
-     *
-     * @param  action        elements to be moved
-     * @see    move2Right()
-     * @see    move2Left()
-     */ 
-    void    applyAction (const action_t &action);
-
-    /**
-     * Simulate a movement to the right and return the solution of this movement.
-     *
-     * @param  state   state to be simulated the aciotn
-     * @param  action  elements to be moved
-     * @return sides_t two sides <left Side, Right Side> of the river
-     */    
-    static sides_t move2Right  (const State &state, const action_t &action);
-
-    /**
-     * Simulate a movement to the left and return the solution of this movement.
-     *
-     * @param  state   state to be simulated the aciotn
-     * @param  action  elements to be moved
-     * @return sides_t two sides <left Side, Right Side> of the river
-     */  
-    static sides_t move2Left   (const State &state, const action_t &action);
+    void applyAction (const action_t &action);
 
     /**
      * Operator ==. Compare if a State is equal to ohter one.
      *
      * @param  otherState   state to be compared to the implicit one
-     * @return              true if the state is equal else false
+     * @return bool         true if the state is equal else false
      */  
     bool operator== (const State& otherState) const;
 
     /**
-     * Get the right side of the state.
-     *
-     * @return side_t pair of elements <missionaries, cannibals> from the right side.
-     */
-    inline const side_t&   getRightSide() const { return _rightSide; }
-
-    /**
-     * Get the left side of the state.
-     *
-     * @return side_t pair of elements <missionaries, cannibals> from the left side.
-     */
-    inline const side_t&   getLeftSide()  const { return _leftSide;  }
-
-    /**
      * Get both sides of the river (State).
      *
-     * @return sides_t pair of elements <leftSide, rightSide> of the river
+     * @return Position the position of the state
+     * @see Position
      */
-    inline sides_t  getSides() const { return sides_t(_leftSide, _rightSide); };
-
-    /**
-     * Get the boat position
-     *
-     * @return bool false (RIGHT) or true (LEFT)
-     */
-    inline bool     getBoatPosition() const { return _boatPosition; };
+    inline Position getPosition() const { return _position; }
 
     /**
      * Operator <<. So it's possible to print the state just put it on the std::cout method.
@@ -180,19 +109,9 @@ public:
 
 private:
     /**
-     * Pair of elements <missionaries, cannibals> from the right side of the river.
+     * Position of the state in the 3D cube.
      */  
-    side_t  _rightSide;      //<Missionari, Cannibal> on right side of the river
-
-    /**
-     * Pair of elements <missionaries, cannibals> from the left side of the river.
-     */ 
-    side_t  _leftSide;      //<Missionari, Cannibal> on right side of the river
-
-    /**
-     * Position of the boat (right or left side)
-     */ 
-    bool    _boatPosition; //Position of the boat,  0=right, 1=left
+    Position  _position;      // Axis X, Y, Z.
 };
 
 }

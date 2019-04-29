@@ -33,7 +33,7 @@ int main(int argc, char **argv)
              <<"Boat Capacity = " << Setting::boatCapacity() <<std::endl << std::endl;
 
     /* Set the Problem wiht parsed arguments */
-    Problem::setInitialState(Setting::missionaries(), Setting::cannibals(), Setting::boatCapacity(), RIGHT);
+    Problem::setInitialState(Setting::missionaries(), Setting::cannibals(), Setting::boatCapacity(), false);
 
     /* Print inital and goal state */
     std::cout <<"		INITIAL STATE		" << std::endl

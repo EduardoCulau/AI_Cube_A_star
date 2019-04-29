@@ -2,6 +2,7 @@
 #define _INFRA_DB_H_
 
 #include "../global.h"
+#include "cube.h"
 #include "state.h"
 #include "node.h"
 
@@ -27,7 +28,7 @@ public:
      * @return State the initial State
      * @see    State
      */
-    static const State& getInitialState () { return get()->_initialState; }
+    const State& getInitialState () const { return _initialState; }
 
     /**
      * Get the goal state
@@ -35,14 +36,14 @@ public:
      * @return State the goal State
      * @see    State
      */
-    static const State& getGoalState () { return get()->_goalState; }
+    const State& getGoalState () { return _goalState; }
 
     /**
      * Get all valid actions (possible actions)
      *
      * @return actions_t a bunch of valid action
      */
-    static const actions_t& getAllValidActions () { return get()->_validActions; }
+    const actions_t& getAllValidActions () { return _validActions; }
 
     /**
      * Set the inital state of the problem
@@ -51,7 +52,7 @@ public:
      * @param  y coordinate
      * @param  z coordinate
      */
-    static void setInitialState (axis_t x, axis_t y, axis_t z);
+    void setInitialState (axis_t x, axis_t y, axis_t z);
 
     /**
      * Set the inital state of the problem
@@ -59,7 +60,7 @@ public:
      * @param  posit Position in the cube
      * @see    Position
      */
-    static void setInitialState (const Position &posit);
+    void setInitialState (const Position &posit);
 
     /**
      * Set the Goal state of the problem
@@ -68,7 +69,7 @@ public:
      * @param  y coordinate
      * @param  z coordinate
      */
-    static void setGoalState (axis_t x, axis_t y, axis_t z);
+    void setGoalState (axis_t x, axis_t y, axis_t z);
 
     /**
      * Set the Goal state of the problem
@@ -76,7 +77,7 @@ public:
      * @param  posit Position in the cube
      * @see    Position
      */
-    static void setGoalState (const Position &posit);
+    void setGoalState (const Position &posit);
 
     /**
      * Create a new state, applying an action. 
@@ -95,9 +96,9 @@ public:
      *
      * @param  state  existing state
      * @param  action action to be applied
-     * @return elem_t the cost of aply this action.
+     * @return size_t the cost of aply this action.
      */
-    static const elem_t StepCost ( const State &state, const action_t &action ) { return 1; }
+    static size_t StepCost ( const State &state, const action_t &action ) { return 1; }
 
     /**
      * Test if a state is the goal state. 
@@ -105,7 +106,7 @@ public:
      * @param  state  existing state
      * @return bool   true if the goal state else false
      */
-    static bool goalTest (const State &state) { return (state == get()->_goalState); }
+    bool goalTest (const State &state) { return (state == _goalState); }
 
     /**
      * Test if is possible to apply and action to some state.
@@ -115,7 +116,7 @@ public:
      * @param  action action to be applied
      * @return bool   true if is possible to apply the action else false
      */    
-    inline static bool canApplyAction (const State &state, const action_t &action);
+    inline bool canApplyAction (const State &state, const action_t &action);
 
     /**
      * Check all valid action on a state and return just the applicable ones.
@@ -123,7 +124,7 @@ public:
      * @param  state     existing state to be tested
      * @return actions_t all applicable actions
      */  
-    static actions_t actions (const State &state);
+    actions_t actions (const State &state);
 
 private:
 

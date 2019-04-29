@@ -37,7 +37,7 @@ typedef size_t	axis_t;
  *      ° getX, getY, getZ
  *
  * @author      Eduardo Culau
- * @version     1.5
+ * @version     1.6
  * @since       1.5
  */
 class Position
@@ -48,7 +48,7 @@ public:
 	 *
 	 * @return      an zero position.
 	 */
-	Position() { _x = 0; _y = 0; _z = 0};
+	Position() { _x = 0; _y = 0; _z = 0;}
 
 	/**
 	 * Creates a positon, setting all the axis.
@@ -66,7 +66,7 @@ public:
 	 * @param  origin an existing Position
 	 * @return State  an object of class Position
 	 */
-	Position(const State &origin){
+	Position(const Position &origin){
 		this->_x = origin.getX();
 		this->_y = origin.getY();
 		this->_z = origin.getZ();
@@ -82,14 +82,14 @@ public:
 	 *
 	 * @return axis_t X axis
 	 */
-	inline axis_t  getX() const { return _x; };
+	inline axis_t  getX() const { return _x; }
 
 	/**
 	 * Get Y axis
 	 *
 	 * @return axis_t Y axis
 	 */
-	inline axis_t  getY() const { return _y; };
+	inline axis_t  getY() const { return _y; }
 
 
 	/**
@@ -97,22 +97,22 @@ public:
 	 *
 	 * @return axis_t Z axis
 	 */
-	inline axis_t  getZ() const { return _z; };
+	inline axis_t  getZ() const { return _z; }
 
 	/**
 	 * Set X axis
 	 */
-	inline void setX(axis_t x) { _x = x; };
+	inline void setX(axis_t x) { _x = x; }
 
 	/**
 	 * Set Y axis
 	 */
-	inline void setY(axis_t y) { _y = y; };
+	inline void setY(axis_t y) { _y = y; }
 
 	/**
 	 * Set Z axis
 	 */
-	inline void setZ(axis_t z) { _z = z; };
+	inline void setZ(axis_t z) { _z = z; }
 
 
 private:
@@ -176,7 +176,7 @@ Position& operator-= (Position &lhs, const Position &rhs) {
  * Template to operator << (print) usend to Position. 
  */
 std::ostream& operator<< (std::ostream &out, const Position &rhs) {
-	out <<"< " << rhs.getX() << " , " << rhs.getY() << " , " << rhs.getZ() << side.second << " >";
+	out <<"< " << rhs.getX() << " , " << rhs.getY() << " , " << rhs.getZ() << " >";
 	return out;
 }
 

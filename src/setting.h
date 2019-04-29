@@ -33,21 +33,21 @@ public:
      *
      * @return      number of missionaries
      */
-    static const elem_t missionaries () { return get()->_missionaries; }
+    static const size_t missionaries () { return get()->_missionaries; }
 
     /**
      * Get the number of cannibals
      *
      * @return      number of cannibals
      */
-    static const elem_t cannibals    () { return get()->_cannibals;    }
+    static const size_t cannibals    () { return get()->_cannibals;    }
 
     /**
      * Get the boat capacity
      *
      * @return      boat capacity
      */
-    static const elem_t boatCapacity () { return get()->_boatCapacity; }
+    static const size_t boatCapacity () { return get()->_boatCapacity; }
 
     /**
      * Set the number of missionaries
@@ -179,17 +179,17 @@ private:
     /**
      * Number of missionaries.
      */
-    elem_t  _missionaries = 0;
+    size_t  _missionaries = 0;
 
     /**
      * Number of cannibals.
      */    
-    elem_t  _cannibals    = 0;
+    size_t  _cannibals    = 0;
 
     /**
      * Boar capacity.
      */ 
-    elem_t  _boatCapacity = 0;
+    size_t  _boatCapacity = 0;
 
     /**
      * Show help text.

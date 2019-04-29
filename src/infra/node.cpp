@@ -2,14 +2,14 @@
 
 using namespace ai;
 
-Node::Node(const State& state, const elem_t pathCost){
+Node::Node(const State& state, const size_t pathCost){
     this->_parent = NULL;
     this->_state  = state;
     this->_pathCost = pathCost;
-    this->_action   = M_PAIR(0,0);
+    this->_action   = action_t();
 }
 
-Node::Node(Node* parent, const State& state, const action_t& action, const elem_t pathCost){
+Node::Node(Node* parent, const State& state, const action_t& action, const size_t pathCost){
     this->_parent = parent;
     this->_state  = state;
     this->_action = action;
