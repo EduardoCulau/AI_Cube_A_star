@@ -2,8 +2,6 @@
 
 using namespace ai;
 
-Solver *Solver::_instance = 0;
-
 solution_t Solver::Breadth_First_Search (){
     //Inital node
     Node* node = new Node(problem.getInitialState(), 0);
@@ -13,7 +11,7 @@ solution_t Solver::Breadth_First_Search (){
 
     //Inital Test.
     if( problem.goalTest(node->getState()) ){
-        solution_t result; result.push_back(new Node(NULL, problem.getGoalState(), M_PAIR(0,0), 0));
+        solution_t result; result.push_back(new Node(NULL, problem.getGoalState(), action_t(0,0), 0));
         return result; //Nothing to be done
     }
 
@@ -65,7 +63,7 @@ solution_t Solver::A_Star (){
 
     //Inital Test.
     if( problem.goalTest(node->getState()) ){
-        solution_t result; result.push_back(new Node(NULL, problem.getGoalState(), M_PAIR(0,0), 0));
+        solution_t result; result.push_back(new Node(NULL, problem.getGoalState(), action_t(0,0), 0));
         return result; //Nothing to be done
     }
 

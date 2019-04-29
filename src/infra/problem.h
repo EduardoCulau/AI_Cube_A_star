@@ -4,7 +4,6 @@
 #include "../global.h"
 #include "cube.h"
 #include "state.h"
-#include "node.h"
 
 namespace ai {
 
@@ -22,6 +21,17 @@ namespace ai {
 class Problem
 {
 public:
+
+    /**
+     * Constructor 
+     */    
+    Problem(){}
+    
+    /**
+     * Destructor
+     */
+    ~Problem(){}
+
     /**
      * Get the initial state
      *
@@ -48,28 +58,10 @@ public:
     /**
      * Set the inital state of the problem
      *
-     * @param  x coordinate
-     * @param  y coordinate
-     * @param  z coordinate
-     */
-    void setInitialState (axis_t x, axis_t y, axis_t z);
-
-    /**
-     * Set the inital state of the problem
-     *
      * @param  posit Position in the cube
      * @see    Position
      */
     void setInitialState (const Position &posit);
-
-    /**
-     * Set the Goal state of the problem
-     *
-     * @param  x coordinate
-     * @param  y coordinate
-     * @param  z coordinate
-     */
-    void setGoalState (axis_t x, axis_t y, axis_t z);
 
     /**
      * Set the Goal state of the problem
@@ -127,16 +119,6 @@ public:
     actions_t actions (const State &state);
 
 private:
-
-    /**
-     * Private Constructor 
-     */    
-    Problem(){}
-    
-    /**
-     * Private Destructor
-     */
-    ~Problem(){}
 
     /**
      * The initial state of the problem

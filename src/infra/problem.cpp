@@ -2,12 +2,14 @@
 
 using namespace ai;
 
-Cube Problem::_validActions = Cube::computeValidActions();
+actions_t Problem::_validActions = Cube::computeValidActions();
 
-void Problem::setInitialState (size_t missionaries, size_t cannibals, size_t boatCapacity, bool boatPosition){
-    _initialState.setData(missionaries, cannibals, boatPosition);
-    _goalState.setData   (missionaries, cannibals, !boatPosition);
-    computeValidActions(missionaries, cannibals, boatCapacity);
+void Problem::setInitialState (const Position &posit){
+    _initialState.setPosition(posit);
+}
+
+void Problem::setGoalState (const Position &posit){
+    _goalState.setPosition(posit);
 }
 
 State Problem::Result ( const State &state, const action_t &action ){

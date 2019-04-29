@@ -14,16 +14,16 @@ void Cube::InitialCube (size_t size, size_t percentage){
 
 void Cube::createCube(){
     /* Create the cube and put all positions to false*/
-    for(i = 0; i < get->getSize(); i++){
+    for(int i = 0; i < get()->getSize(); i++){
         get()->_cube[0][0][i] = false;
     }
 
-    for(j = 1; j < get->getSize(); j++){
-        get()->_cube[0][j] = get->_cube[0][0];
+    for(int j = 1; j < get()->getSize(); j++){
+        get()->_cube[0][j] = get()->_cube[0][0];
     }
 
-    for(k = 1; k < get->getSize(); k++){
-        get()->_cube[k] = get->_cube[0];
+    for(int k = 1; k < get()->getSize(); k++){
+        get()->_cube[k] = get()->_cube[0];
     }
 }
 
@@ -34,7 +34,7 @@ void Cube::fillObstructionsCube(){
     size_t obstMax = (size_t) std::ceil( std::pow( (float) get()->getSize(), 3) * ((float) get()->getPercent() ) / 100.0 );
 
     /* Use current time as seed for random generator */
-    std::srand(std::time(nullptr))
+    std::srand(std::time(0));
 
     /* Stay here until the ob */
     while(obstrct < obstMax){
@@ -67,7 +67,7 @@ actions_t Cube::computeValidActions() {
     return validActions;
 }
 
-bool Cube::isAxisInside (axis_t &axi){
+bool Cube::isAxisInside (axis_t axi){
     return ( axi >= 0 && axi < get()->getSize() );
 }
 

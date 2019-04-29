@@ -29,46 +29,60 @@ public:
     }
 
     /**
-     * Get the number of missionaries
+     * Get the size of the cube
      *
-     * @return      number of missionaries
+     * @return size_t size of the cube NxNxN
      */
-    static const size_t missionaries () { return get()->_missionaries; }
+    static const size_t cubeSize () { return get()->_cubeSize; }
 
     /**
-     * Get the number of cannibals
+     * Get the percentage of obstructions
      *
-     * @return      number of cannibals
+     * @return size_t percentage of obstructions
      */
-    static const size_t cannibals    () { return get()->_cannibals;    }
+    static const size_t obstructions () { return get()->_obstructions; }
 
     /**
-     * Get the boat capacity
+     * Get the number of routes to be tested.
      *
-     * @return      boat capacity
+     * @return size_t number of routes
      */
-    static const size_t boatCapacity () { return get()->_boatCapacity; }
+    static const size_t routes () { return get()->_routes; }
 
     /**
-     * Set the number of missionaries
+     * Get the number of threads
      *
-     * @param  miss number of missionaries
+     * @return size_t number of threads
      */
-    static void missionaries (int miss) { get()->_missionaries = miss; }
+    static const size_t threads () { return get()->_threads; }
 
     /**
-     * Set the number of cannibals
+     * Set the size of the cube
      *
-     * @param  cann number of cannibals
+     * @param  size size of the cube
      */
-    static void cannibals    (int cann) { get()->_cannibals    = cann; }
+    static void cubeSize (int size) { get()->_cubeSize = size; }
 
     /**
-     * Set the boat caácity
+     * Set the percentage of obstructions
      *
-     * @param  bCap boat capacity
+     * @param  obs percentage of obstructions
      */
-    static void boatCapacity (int bCap) { get()->_boatCapacity = bCap; }
+    static void obstructions (int obs) { get()->_obstructions = obs; }
+
+    /**
+     * Set the number of routes
+     *
+     * @param  routes number of routes, 0 to all
+     */
+    static void routes (int routes) { get()->_routes = routes; }
+
+    /**
+     * Set the number of threads
+     *
+     * @param  threads number of threads, 0 to all
+     */
+    static void threads (int threads) { get()->_threads = threads; }
 
     /**
      * Read the arguments sent to the program.
@@ -90,19 +104,19 @@ public:
 
             /* Size of the cube */
             } else if( arg == "-c" && i < argc ) {
-                Setting::missionaries(std::atoi(argv[i++]));
+                Setting::cubeSize(std::atoi(argv[i++]));
 
             /* Percentage of obstructions */
             } else if( arg == "-o" && i < argc ) {
-                Setting::cannibals(std::atoi(argv[i++]));
+                Setting::obstructions(std::atoi(argv[i++]));
 
-            /* Number of paths */
-            } else if( arg == "-p" && i < argc ) {
-                Setting::boatCapacity(std::atoi(argv[i++]));
+            /* Number of routes */
+            } else if( arg == "-r" && i < argc ) {
+                Setting::routes(std::atoi(argv[i++]));
 
             /* Number of threads */
             } else if( arg == "-t" && i < argc ) {
-                Setting::boatCapacity(std::atoi(argv[i++]));
+                Setting::threads(std::atoi(argv[i++]));
 
             } else {
                 std::cerr<<"Unknown option: "<<arg<<std::endl;
@@ -125,8 +139,8 @@ public:
             std::cout<<"    Program Argumments  "<<std::endl
                      <<"-c [INT] : size of the cube"<<std::endl
                      <<"-o [INT] : percentage of obstructions"<<std::endl
-                     <<"-p [INT] : number of paths"<<std::endl
-                     <<"-t [INT] : number of threads"<<std::endl
+                     <<"-p [INT] : number of routes, 0 to all"<<std::endl
+                     <<"-t [INT] : number of threads, 0 to all"<<std::endl
                      <<"-h       : show this text"<<std::endl;
             return false;
         }
@@ -136,17 +150,17 @@ public:
             std::cout<<"The cube musto to be at least 3x3x3."<<std::endl; valid = false;
         }
 
-        if( get()->_ < 1 ){
-            std::cout<<"Must to have at least 1 cannibal."<<std::endl; valid = false;
+        if( get()->_obstructions > 100 ){
+            std::cout<<"Obstructions must to be at maximum of 100%."<<std::endl; valid = false;
         }
 
-        if( get()->_boatCapacity < 2 ){
-            std::cout<<"The boat capacity must to be at least 2."<<std::endl; valid = false;
+        if( get()->_routes < 1 ){
+            //std::cout<<"Must to have at least 1 path do be done."<<std::endl; valid = false;
         }
 
         /* Must not have more cannibals than missionaries. */
-        if( get()->_cannibals > get()->_missionaries ){
-             std::cout<<"The number of missionaries must to be equal or greater the number of cannibals."<<std::endl; valid = false;
+        if( get()->_threads < 1 ){
+            //std::cout<<"Must to have at least one thread."<<std::endl; valid = false;
         }
 
         return valid;
@@ -194,7 +208,7 @@ private:
     /**
      * Boar capacity.
      */ 
-    size_t  _paths = 0;
+    size_t  _routes = 0;
 
     /**
      * Boar capacity.

@@ -15,7 +15,7 @@ typedef std::deque<Node*>  deque_t;
 /**
  * Priority queue to store the Nodes pointers.
  */
-typedef std::priority_queue<Node*>  deque_t;
+typedef std::priority_queue<Node*>  priorityQueue_t;
 
 
 /**
@@ -88,7 +88,7 @@ private:
      * @param  node       pointer of the last node
      * @return solution_t solution of the problem
      */
-    static bool stateFind (const store_t& dq, const State& state);
+    static bool stateFind (const deque_t& dq, const State& state);
 
     /**
      * Deque to store the Nodes* that was explored. Used to solve the problem.

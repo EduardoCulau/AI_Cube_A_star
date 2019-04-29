@@ -65,14 +65,14 @@ public:
      *
      * @param size_t size of the cube.
      */
-    inline static size_t getSize (size_t size) { return get()->_size; };
+    inline static size_t getSize () { return get()->_size; };
 
     /**
      * Get the percentage of blockeds
      *
      * @return size_t percentage of blockeds
      */
-    inline static size_t getPercent (size_t percent) { return get()->_percent; };
+    inline static size_t getPercent () { return get()->_percent; };
 
     /**
      * Get the percentage of blockeds
@@ -100,7 +100,7 @@ public:
      *
      * @return bool true if is inside else false.
      */
-    inline static bool isAxisInside (axis_t &axi);
+    inline static bool isAxisInside (axis_t axi);
 
     /**
      * Check if a position is inside the cube.

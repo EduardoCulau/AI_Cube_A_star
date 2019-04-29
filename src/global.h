@@ -6,9 +6,11 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <queue>
 #include <algorithm>
 #include <iterator>
-#include <cstring>
+#include <ctime>
+#include <cmath>
 
 /* Defined by the compiler */
 //#define PRINT_EXEC
