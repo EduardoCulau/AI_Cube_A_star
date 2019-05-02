@@ -77,7 +77,7 @@ public:
 	/**
 	 * Destructor
 	 */
-	~Position();
+	~Position() {};
 
 	/**
 	 * Get X axis
@@ -119,8 +119,46 @@ public:
 	/**
 	 * Operator ==
 	 */
-	inline bool operator== (const Position &rhs) {   
+	inline bool operator== (const Position &rhs) const {   
 		return (this->getX() == rhs.getX() && this->getY() == rhs.getY() && this->getZ() == rhs.getZ());
+	}
+
+	/**
+	 * Operator + usend to Positon 
+	 */
+	inline Position operator+ (const Position &rhs) const {   
+		return Position(this->getX() + rhs.getX(), this->getY() + rhs.getY(), this->getZ() + rhs.getZ());
+	}
+
+	/**
+	 * Operator - usend to Positon 
+	 */
+	inline Position operator- (const Position &rhs) const {   
+		return Position(this->getX() - rhs.getX(), this->getY() - rhs.getY(), this->getZ() - rhs.getZ());
+	}
+
+	/**
+	 * Operator += usend to Positon. 
+	 */
+	inline Position& operator+= (const Position &rhs) {
+		this->setX(this->getX() + rhs.getX()); this->setY(this->getY() + rhs.getY()); this->setZ(this->getZ() + rhs.getZ());
+		return *this;   
+	}
+
+	/**
+	 * Operator += usend to Positon. 
+	 */
+	inline Position& operator-= (const Position &rhs) {
+		this->setX(this->getX() - rhs.getX()); this->setY(this->getY() - rhs.getY()); this->setZ(this->getZ() - rhs.getZ());
+		return *this;   
+	}
+
+	/**
+	 * Operator << (print) usend to Position. 
+	 */
+	friend inline std::ostream& operator<< (std::ostream &out, const Position &rhs) {
+		out <<"< " << rhs.getX() << " , " << rhs.getY() << " , " << rhs.getZ() << " >";
+		return out;
 	}
 
 private:
@@ -149,45 +187,6 @@ typedef Position 				action_t;
  * A bunch of action
  */
 typedef std::vector<action_t>	actions_t;
-
-
-/**
- * Operator + usend to Positon 
- */
-Position operator+ (const Position &lhs, const Position &rhs) {   
-	return Position(lhs.getX() + rhs.getX(), lhs.getY() + rhs.getY(), lhs.getZ() + rhs.getZ());
-}
-
-/**
- * Operator - usend to Positon 
- */
-Position operator- (const Position &lhs, const Position &rhs) {   
-	return Position(lhs.getX() - rhs.getX(), lhs.getY() - rhs.getY(), lhs.getZ() - rhs.getZ());
-}
-
-/**
- * Operator += usend to Positon. 
- */
-Position& operator+= (Position &lhs, const Position &rhs) {
-	lhs.setX(lhs.getX() + rhs.getX()); lhs.setY(lhs.getY() + rhs.getY()); lhs.setZ(lhs.getZ() + rhs.getZ());
-	return lhs;   
-}
-
-/**
- * Operator += usend to Positon. 
- */
-Position& operator-= (Position &lhs, const Position &rhs) {
-	lhs.setX(lhs.getX() - rhs.getX()); lhs.setY(lhs.getY() - rhs.getY()); lhs.setZ(lhs.getZ() - rhs.getZ());
-	return lhs;   
-}
-
-/**
- * Operator << (print) usend to Position. 
- */
-std::ostream& operator<< (std::ostream &out, const Position &rhs) {
-	out <<"< " << rhs.getX() << " , " << rhs.getY() << " , " << rhs.getZ() << " >";
-	return out;
-}
 
 }
 

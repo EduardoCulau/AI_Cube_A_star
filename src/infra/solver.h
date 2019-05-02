@@ -67,7 +67,7 @@ public:
      * @param  node       pointer of the last node
      * @return solution_t solution of the problem
      */
-    const Problem& getProblem () const {return _problem;}
+    const Problem& getProblem () const {return problem;}
 
 
 private:
