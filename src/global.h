@@ -10,6 +10,7 @@
 #include <iterator>
 #include <ctime>
 #include <cmath>
+#include <limits>
 
 /* Defined by the compiler */
 //#define PRINT_EXEC

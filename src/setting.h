@@ -162,6 +162,10 @@ public:
             std::cout<<"Must to have at least 1 path do be done."<<std::endl; valid = false;
         }
 
+        if( get()->_routes > get()->maxRoutes("permutation") ){
+            std::cout<<"The max number of routes in that cube is "<<  get()->maxRoutes("permutation") << "." << std::endl; valid = false;
+        }
+
         /* Must not have more cannibals than missionaries. */
         if( get()->_threads < 1 ){
             std::cout<<"Must to have at least one thread."<<std::endl; valid = false;
@@ -169,6 +173,28 @@ public:
 
         return valid;
     }
+
+    /**
+     * Return the max number of routes
+     * Combination or Permutation for (n,s). N is the number of available positions in the cube and s = 2 is the pair (initial and goal state)
+     * P = n! / (n-s)! , for s = 2  P = n! / (n-2)! = (n*(n-1)*(n-2)*...)/((n-2)*...), so P = n*(n-1).
+     * C = n! / (s! * (n-s)! ), for s = 2 C = P/2, so C = n*(n-1)/2.
+     *
+     * @return size_t number of obstructions
+     */    
+    static size_t maxRoutes(const std::string &type) {
+        /* Calculate the permutation */
+        long double n      = (long double) std::floor(std::pow( (long double) get()->_cubeSize, 3) * (100.0 - (long double) get()->_obstructions ) / 100.0);
+        long double permut = n * (n-1);
+        /* Return the chosen type */
+        if( type == "permutation")
+            return (size_t) permut;
+        if( type == "combination")
+            return (size_t) (permut / 2.0);
+        else
+            return -1;
+    }
+
 
 private:
     /**

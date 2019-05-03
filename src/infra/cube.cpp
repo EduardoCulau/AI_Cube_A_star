@@ -31,10 +31,10 @@ void Cube::createCube(){
 }
 
 void Cube::fillObstructionsCube(){
-    /* Fill the cube with the obistructions */
+    /* Fill the cube with the obstructions */
     int x, y, z;
     size_t obstrct = 0; 
-    size_t obstMax = (size_t) std::ceil( std::pow( (float) get()->getSize(), 3) * ((float) get()->getPercent() ) / 100.0 );
+    size_t obstMax = get()->numberOfObstructions();
 
     /* Use current time as seed for random generator */
     std::srand(std::time(0));

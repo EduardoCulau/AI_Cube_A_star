@@ -7,6 +7,14 @@
 
 namespace ai {
 
+/* Fowording of the class Problem */
+class Problem;
+
+/**
+ * A bunch of problems
+ */
+typedef std::vector<Problem>   problems_t;
+
 /**
  * Problem is a Class that define the problem.
  * It has argument and method used to solve the problem:
@@ -135,11 +143,6 @@ private:
      */  
     static actions_t _validActions;
 };
-
-/**
- * A bunch of problems
- */
-typedef std::vector<Problem>   problems_t;
 
 }
 

@@ -123,6 +123,8 @@ public:
 
     /**
      * Compute all valid actions.
+     *
+     * @return actions_t the valid actions
      */    
     static actions_t computeValidActions();
 
@@ -135,6 +137,13 @@ public:
      * Print the value of a postition of the Cube in many matrices.
      */
     static void printCube2D ();
+
+    /**
+     * Return the number of obstructions
+     *
+     * @return size_t number of obstructions
+     */    
+    static size_t numberOfObstructions() { return (size_t) std::ceil( std::pow( (float) get()->getSize(), 3) * ((float) get()->getPercent() ) / 100.0 ); }
 
 private:
 
