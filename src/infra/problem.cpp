@@ -32,3 +32,24 @@ actions_t Problem::actions (const State &state){
     }
     return actions;
 }
+
+problems_t Problem::createProblems (size_t nProblems){
+    /* Create the problems */
+    problems_t problems;
+    Position initialPosit, goalPosit;
+    size_t problem = 0; 
+
+    /* Stay here until the ob */
+    while(problem < nProblems){
+        initialPosit = Cube::getRandomPosition();
+        goalPosit    = Cube::getRandomPosition();
+
+        /* Check if both position aren't obtructed. */
+        if( !Cube::isObstructed(initialPosit) && !Cube::isObstructed(goalPosit) ){
+            problems.emplace_back(initialPosit, goalPosit);
+            problem++;
+        }
+    }
+
+    return problems;
+}

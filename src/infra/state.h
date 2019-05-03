@@ -95,7 +95,7 @@ public:
      * @return Position the position of the state
      * @see Position
      */
-    inline Position getPosition() const { return _position; }
+    inline const Position& getPosition() const { return _position; }
 
     /**
      * Operator <<. So it's possible to print the state just put it on the std::cout method.

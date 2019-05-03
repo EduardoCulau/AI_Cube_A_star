@@ -30,13 +30,14 @@ int main(int argc, char **argv)
     /* Print the parameter */
     std::cout<<"		STARTING		"       <<std::endl
              <<"Size of the Cube = "            << Setting::cubeSize() << "x" << Setting::cubeSize() << "x" << Setting::cubeSize() <<std::endl
-             <<"Percentage of obstructions  = " << Setting::obstructions() << "%"<<std::endl             
-             <<"Routes = "                      << Setting::routes()    <<std::endl
-             <<"Threads = "                     << Setting::threads() <<std::endl << std::endl;
+             <<"Percentage of obstructions  = " << Setting::obstructions() << "%" << std::endl
+             <<"Routes = "                      << Setting::routes() << std::endl
+             <<"Threads = "                     << Setting::threads() << std::endl << std::endl;
 
     /* Initialize the Cube with the obstructions percentage */
     Cube::InitializeCube(Setting::cubeSize(), Setting::obstructions());
     Cube::printCube2D();
+    problems_t Problems = Problem::createProblems(2);
 
     /* Set the Problem wiht parsed arguments */
 //    Problem::setInitialState(Setting::missionaries(), Setting::cannibals(), Setting::boatCapacity(), false);

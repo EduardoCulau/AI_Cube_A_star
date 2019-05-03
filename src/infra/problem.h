@@ -13,7 +13,7 @@ class Problem;
 /**
  * A bunch of problems
  */
-typedef std::vector<Problem>   problems_t;
+typedef std::vector<Problem> problems_t;
 
 /**
  * Problem is a Class that define the problem.
@@ -34,6 +34,14 @@ public:
      * Constructor 
      */    
     Problem(){}
+
+    /**
+     * Constructor 
+     */    
+    Problem( Position &initialPosit, Position &goalPosit ){
+        this->setInitialState(initialPosit);
+        this->setGoalState(goalPosit);
+    }
     
     /**
      * Destructor
@@ -125,6 +133,14 @@ public:
      * @return actions_t all applicable actions
      */  
     actions_t actions (const State &state);
+
+    /**
+     * Criates all problems (initial and goal state) to perform.
+     *
+     * @param  nProblems  number of problems to be create
+     * @return problems_t a bunch of Problems
+     */  
+    static problems_t createProblems (size_t nProblems);
 
 private:
 

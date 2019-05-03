@@ -53,6 +53,8 @@ public:
     static Cube* get(){
         if ( !_instance ) {
             _instance = new Cube;
+            /* Feed the srand for future uses. Use current time as seed for random generator*/
+            std::srand(std::time(0));
         }
         return _instance;
     }        
@@ -89,6 +91,9 @@ public:
     /**
      * Check if position is obstructed.
      *
+     * @param  x x axis
+     * @param  y y axis     
+     * @param  z z axis     
      * @return bool true if is obstructed else false.
      */
     inline static bool isObstructed (axis_t x, axis_t y, axis_t z) { return get()->_cube[x][y][z]; };
@@ -96,9 +101,26 @@ public:
     /**
      * Check if position is obstructed.
      *
+     * @param  posit Position in the cube     
      * @return bool true if is obstructed else false.
      */
     inline static bool isObstructed (const Position &posit) { return get()->isObstructed( posit.getX(), posit.getY(), posit.getZ() ); };
+
+    /**
+     * Set an obstriction.
+     *
+     * @param  x x axis
+     * @param  y y axis     
+     * @param  z z axis 
+     */
+    inline static void setObstruction (axis_t x, axis_t y, axis_t z) { get()->_cube[x][y][z] = true; };
+
+    /**
+     * Set an obstriction.
+     *
+     * @param  posit Position in the cube    
+     */
+    inline static void setObstruction (const Position &posit) { get()->setObstruction( posit.getX(), posit.getY(), posit.getZ() ); };
 
     /**
      * Check if an axis is inside the axis of the cube.
@@ -144,6 +166,13 @@ public:
      * @return size_t number of obstructions
      */    
     static size_t numberOfObstructions() { return (size_t) std::ceil( std::pow( (float) get()->getSize(), 3) * ((float) get()->getPercent() ) / 100.0 ); }
+
+    /**
+     * Get a random position within the cube.
+     *
+     * @return Position a random position within the cube
+     */
+    static Position getRandomPosition () { return Position(std::rand() % get()->getSize(), std::rand() % get()->getSize(), std::rand() % get()->getSize()); }
 
 private:
 

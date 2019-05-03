@@ -32,23 +32,17 @@ void Cube::createCube(){
 
 void Cube::fillObstructionsCube(){
     /* Fill the cube with the obstructions */
-    int x, y, z;
-    size_t obstrct = 0; 
+    Position posit;
+    size_t obstrct = 0;
     size_t obstMax = get()->numberOfObstructions();
-
-    /* Use current time as seed for random generator */
-    std::srand(std::time(0));
 
     /* Stay here until the ob */
     while(obstrct < obstMax){
-        x = std::rand() % get()->getSize();
-        y = std::rand() % get()->getSize();
-        z = std::rand() % get()->getSize();
-        if( !get()->isObstructed(x,y,z) ){
-            get()->_cube[x][y][z] = true;
+        posit = get()->getRandomPosition();
+        if( !get()->isObstructed(posit) ){
+            get()->setObstruction(posit);
             obstrct++;
         }
-
     }
 }
 
