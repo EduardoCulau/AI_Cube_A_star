@@ -1,5 +1,5 @@
-#ifndef _INFRA_SOLVER_H_
-#define _INFRA_SOLVER_H_
+#ifndef _INFRA_CUBE_H_
+#define _INFRA_CUBE_H_
 
 #include "../global.h"
 

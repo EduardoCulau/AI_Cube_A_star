@@ -1,5 +1,5 @@
-#ifndef _INFRA_DB_H_
-#define _INFRA_DB_H_
+#ifndef _INFRA_PROBLEM_H_
+#define _INFRA_PROBLEM_H_
 
 #include "../global.h"
 #include "cube.h"
