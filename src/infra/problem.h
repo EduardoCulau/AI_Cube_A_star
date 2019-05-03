@@ -152,6 +152,14 @@ public:
      */  
     friend std::ostream& operator<< (std::ostream &out, const Problem& problem);
 
+    /**
+     * Operator ==. Compare if a Problem is equal to ohter one.
+     *
+     * @param  otherProblem  state to be compared to the implicit one
+     * @return bool         true if the state is equal else false
+     */  
+    bool operator== (const Problem& otherProblem) const;
+
 private:
 
     /**

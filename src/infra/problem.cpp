@@ -54,6 +54,10 @@ problems_t Problem::createProblems (size_t nProblems){
     return problems;
 }
 
+bool Problem::operator== (const Problem& otherProblem) const {
+    return ( this->getInitialState() == otherProblem.getInitialState() && this->getGoalState() == otherProblem.getGoalState() );
+}
+
 namespace ai {
 
     std::ostream& operator<< (std::ostream &out, const Problem& problem) {
