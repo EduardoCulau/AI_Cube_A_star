@@ -4,7 +4,7 @@ using namespace ai;
 
 Cube *Cube::_instance = 0;
 
-void Cube::InitialCube (size_t size, size_t percentage){
+void Cube::InitializeCube (size_t size, size_t percentage){
     get()->setSize(size);
     get()->setPercent(percentage);
     get()->createCube();
@@ -13,7 +13,10 @@ void Cube::InitialCube (size_t size, size_t percentage){
 
 
 void Cube::createCube(){
-    /* Create the cube and put all positions to false*/
+    /* Create the Cube */
+    get()->_cube = CREATE_CUBE(get()->getSize());
+
+    /* Put all positions to false*/
     for(int i = 0; i < get()->getSize(); i++){
         get()->_cube[0][0][i] = false;
     }
@@ -80,4 +83,32 @@ bool Cube::canApplyAction (const Position &posit, const action_t &action){
     Position result = posit + action;
     /* Check if is inside the cube and if is not obstructed */
     return ( get()->isPositionInside(result) && !get()->isObstructed(result) );
+}
+
+
+void Cube::printCube () {
+    for(int x = 0; x < get()->getSize(); x++){
+        for(int y = 0; y < get()->getSize(); y++){
+            for(int z = 0; z < get()->getSize(); z++){
+                std::cout <<"Cube [" << x << "][" << y << "][" << z << "] = " << get()->isObstructed(x,y,z) << std::endl;
+            }  
+        }
+    }
+    std::cout << std::endl;
+}
+
+void Cube::printCube2D (){
+    /* Create the cube and put all positions to false*/
+    for(int z = 0; z < get()->getSize(); z++){
+        std::cout << "Cube [x][y][" << z << "]" << std::endl << " {" << std::endl;
+            for(int y = 0; y < get()->getSize(); y++){
+                std::cout << "\t";
+                for(int x = 0; x < get()->getSize(); ++x, std::cout <<  " | "){
+                    std::cout << get()->isObstructed(x,y,z);
+                }
+                std::cout << "\b\b " << std::endl;
+            } 
+        std::cout << "}" << std::endl; 
+    }
+    std::cout << std::endl;
 }

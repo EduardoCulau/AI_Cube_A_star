@@ -139,7 +139,7 @@ public:
             std::cout<<"    Program Argumments  "<<std::endl
                      <<"-c [INT] : size of the cube"<<std::endl
                      <<"-o [INT] : percentage of obstructions"<<std::endl
-                     <<"-p [INT] : number of routes, 0 to all"<<std::endl
+                     <<"-r [INT] : number of routes, 0 to all"<<std::endl
                      <<"-t [INT] : number of threads, 0 to all"<<std::endl
                      <<"-h       : show this text"<<std::endl;
             return false;
@@ -150,17 +150,21 @@ public:
             std::cout<<"The cube musto to be at least 3x3x3."<<std::endl; valid = false;
         }
 
+        if( get()->_obstructions < 0 ){
+            std::cout<<"Obstructions must to be at least of 0%."<<std::endl; valid = false;
+        }
+
         if( get()->_obstructions > 100 ){
             std::cout<<"Obstructions must to be at maximum of 100%."<<std::endl; valid = false;
         }
 
         if( get()->_routes < 1 ){
-            //std::cout<<"Must to have at least 1 path do be done."<<std::endl; valid = false;
+            std::cout<<"Must to have at least 1 path do be done."<<std::endl; valid = false;
         }
 
         /* Must not have more cannibals than missionaries. */
         if( get()->_threads < 1 ){
-            //std::cout<<"Must to have at least one thread."<<std::endl; valid = false;
+            std::cout<<"Must to have at least one thread."<<std::endl; valid = false;
         }
 
         return valid;
@@ -203,7 +207,7 @@ private:
     /**
      * Number of cannibals.
      */    
-    size_t  _obstructions = 0;
+    size_t  _obstructions = -1;
 
     /**
      * Boar capacity.

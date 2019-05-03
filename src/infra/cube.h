@@ -26,6 +26,11 @@ typedef std::vector<obstruction1D_t> obstruction2D_t;
 typedef std::vector<obstruction2D_t> obstruction3D_t;
 
 /**
+ * Define para criar o cubo.
+ */
+#define CREATE_CUBE(X) obstruction3D_t(X, obstruction2D_t(X, obstruction1D_t(X)))
+
+/**
  * Cube is a Singleton Class that defines the Cube of the problem.
  * It has argument and method like:
  *      ° Cube with obstructions
@@ -58,7 +63,7 @@ public:
      * @param  size         size of the cube
      * @param  percentage   percentage of blocked
      */
-    static void InitialCube (size_t size, size_t percentage);
+    static void InitializeCube (size_t size, size_t percentage);
 
     /**
      * Get the size
@@ -120,6 +125,16 @@ public:
      * Compute all valid actions.
      */    
     static actions_t computeValidActions();
+
+    /**
+     * Print the value of a postition of the Cube
+     */
+    static void printCube ();
+
+    /**
+     * Print the value of a postition of the Cube in many matrices.
+     */
+    static void printCube2D ();
 
 private:
 

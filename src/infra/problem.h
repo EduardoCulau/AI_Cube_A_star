@@ -136,6 +136,11 @@ private:
     static actions_t _validActions;
 };
 
+/**
+ * A bunch of problems
+ */
+typedef std::vector<Problem>   problems_t;
+
 }
 
 #endif

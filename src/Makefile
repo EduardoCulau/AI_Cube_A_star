@@ -15,8 +15,8 @@ INFRA_OBJS = infra/cube.o infra/state.o infra/node.o infra/problem.o infra/solve
 OBJS = $(CC_OBJS) $(INFRA_OBJS)
 
 SRCS = ${OBJS:%.o=%.cpp}
-BFILE = miss_cann
-AFILE = miss_cann.a
+BFILE = cube
+AFILE = cube.a
 
 define copy_build
 	mkdir -p ../$(TARGET)
@@ -48,6 +48,15 @@ cleanAll:
 	$(RM) -f $(BFILE) $(AFILE)
 	$(RM) -f ../$(TARGET)/$(BFILE)
 
-.PHONY: run332
-run332:
-	../bin/miss_cann -m 3 -c 3 -bc 2
+.PHONY: runTest
+runTest:
+	../bin/$(BFILE) -c 3 -o 10 -r 100 -t 1
+
+.PHONY: compileAndTest
+compileAndTest:
+	echo "\nCLEANING\n";
+	make cleanAll
+	echo "\nCOMPILING\n";
+	make -j 6
+	echo "\nTESTING\n";
+	make runTest

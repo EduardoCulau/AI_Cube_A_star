@@ -1,7 +1,7 @@
 #ifndef _INFRA_NODE_H_
 #define _INFRA_NODE_H_
 
-#include "global.h"
+#include "../global.h"
 #include "problem.h"
 #include "state.h"
 
