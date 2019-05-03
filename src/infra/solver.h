@@ -15,7 +15,7 @@ typedef std::deque<Node*>  deque_t;
 /**
  * Priority queue to store the Nodes pointers.
  */
-typedef std::priority_queue<Node*>  priorityQueue_t;
+typedef std::priority_queue<Node*, std::vector<Node*>, Node>  priorityQueue_t;
 
 
 /**

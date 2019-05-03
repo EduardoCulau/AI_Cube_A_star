@@ -4,7 +4,7 @@ using namespace ai;
 
 solution_t Solver::Breadth_First_Search (){
     //Inital node
-    Node* node = new Node(problem.getInitialState(), 0);
+    Node* node = new Node(problem.getInitialState(), 0.0);
     Node* child;
 
     deque_t frontier;
@@ -58,7 +58,7 @@ solution_t Solver::Breadth_First_Search (){
 
 solution_t Solver::A_Star (){
     //Inital node
-    Node* node = new Node(problem.getInitialState(), 0);
+    Node* node = new Node(problem.getInitialState(), 0.0);
     Node* child;
     deque_t frontier;
 

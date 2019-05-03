@@ -57,6 +57,6 @@ compileAndTest:
 	echo "\nCLEANING\n";
 	make cleanAll
 	echo "\nCOMPILING\n";
-	make -j 6
+	make -j
 	echo "\nTESTING\n";
 	make runTest

@@ -84,6 +84,20 @@ public:
     size_t getPathCost()        const{ return _pathCost; }
 
     /**
+     * Get the total (F) cost.
+     *
+     * @return cost_t total cost
+     */
+    cost_t getFCost()        const{ return _FCost; }
+
+    /**
+     * Get the heuristic (H) cost.
+     *
+     * @return cost_t heuristic cost
+     */
+    cost_t getHCost()        const{ return _HCost; }
+
+    /**
      * Get the parent node of the node.
      *
      * @return Node* pointer to the parent node.
@@ -137,6 +151,15 @@ public:
      */  
     static void printSolutionNode     (const Node* node);
 
+    /**
+     * Compare two Node* and return true if the fist is greate than the second.
+     *
+     * @param  lhs  lhs Node*
+     * @param  rhs  rhs Node*
+     * @return bool true if lhs->_totalcost > rhs->_totalcost
+     */  
+    inline bool operator() (Node* lhs, Node* rhs) { return lhs->getFCost() > rhs->getFCost(); }
+
 private:
     /**
      * Pointer to the parent Node
@@ -154,9 +177,14 @@ private:
     action_t _action;
 
     /**
-     * Cost of the Node
+     * Cost of the Node (cost of the path, G)
      */  
-    cost_t   _pathCost;
+    size_t   _pathCost;
+
+    /**
+     * Total cost (F) and heuristic (H)
+     */  
+    cost_t   _FCost, _HCost;
 
 };
 

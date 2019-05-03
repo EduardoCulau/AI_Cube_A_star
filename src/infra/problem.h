@@ -106,7 +106,7 @@ public:
      * @param  action action to be applied
      * @return size_t the cost of aply this action.
      */
-    static size_t StepCost ( const State &state, const action_t &action ) { return 1; }
+    inline static size_t StepCost ( const State &state, const action_t &action ) { return 1; }
 
     /**
      * Test if a state is the goal state. 
