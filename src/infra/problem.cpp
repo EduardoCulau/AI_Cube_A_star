@@ -45,7 +45,7 @@ problems_t Problem::createProblems (size_t nProblems){
         goalPosit    = Cube::getRandomPosition();
 
         /* Check if both position aren't obtructed. */
-        if( !Cube::isObstructed(initialPosit) && !Cube::isObstructed(goalPosit) ){
+        if( !Cube::isObstructed(initialPosit) && !Cube::isObstructed(goalPosit) && initialPosit != goalPosit){
             problems.emplace_back(initialPosit, goalPosit);
             problem++;
         }

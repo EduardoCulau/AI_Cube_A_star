@@ -124,6 +124,13 @@ public:
 	}
 
 	/**
+	 * Operator !=
+	 */
+	inline bool operator!= (const Position &rhs) const {   
+		return !(this->operator==(rhs));
+	}
+
+	/**
 	 * Operator + usend to Positon 
 	 */
 	inline Position operator+ (const Position &rhs) const {   
