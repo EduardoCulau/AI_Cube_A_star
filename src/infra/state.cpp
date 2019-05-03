@@ -17,7 +17,7 @@ bool State::operator== (const State& otherState) const {
 namespace ai {
 
     std::ostream& operator<< (std::ostream &out, const State& state) {
-        out << state.getPosition() << std::endl;
+        out << state.getPosition();
         return out;
     }
 

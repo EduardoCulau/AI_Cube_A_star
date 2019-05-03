@@ -37,7 +37,12 @@ int main(int argc, char **argv)
     /* Initialize the Cube with the obstructions percentage */
     Cube::InitializeCube(Setting::cubeSize(), Setting::obstructions());
     Cube::printCube2D();
-    problems_t Problems = Problem::createProblems(2);
+    problems_t Problems = Problem::createProblems(Setting::routes());
+
+    /* Print all problems */
+    for(auto p : Problems){
+        std::cout << p << std::endl;
+    }
 
     /* Set the Problem wiht parsed arguments */
 //    Problem::setInitialState(Setting::missionaries(), Setting::cannibals(), Setting::boatCapacity(), false);

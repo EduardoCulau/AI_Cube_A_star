@@ -164,7 +164,7 @@ public:
 	 * Operator << (print) usend to Position. 
 	 */
 	friend inline std::ostream& operator<< (std::ostream &out, const Position &rhs) {
-		out <<"< " << rhs.getX() << " , " << rhs.getY() << " , " << rhs.getZ() << " >";
+		out <<"(" << rhs.getX() << "," << rhs.getY() << "," << rhs.getZ() << ")";
 		return out;
 	}
 

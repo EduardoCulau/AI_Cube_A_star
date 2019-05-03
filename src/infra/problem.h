@@ -62,7 +62,7 @@ public:
      * @return State the goal State
      * @see    State
      */
-    const State& getGoalState () { return _goalState; }
+    const State& getGoalState () const { return _goalState; }
 
     /**
      * Get all valid actions (possible actions)
@@ -141,6 +141,16 @@ public:
      * @return problems_t a bunch of Problems
      */  
     static problems_t createProblems (size_t nProblems);
+
+    /**
+     * Operator <<. So it's possible to print the Problem just put it on the std::cout method.
+     *
+     * @param  out           existing std::ostream
+     * @param  problem       problem to be printed
+     * @return std::ostream& std::ostream whith the State data
+     * @see    std::ostream
+     */  
+    friend std::ostream& operator<< (std::ostream &out, const Problem& problem);
 
 private:
 

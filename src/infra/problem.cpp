@@ -53,3 +53,12 @@ problems_t Problem::createProblems (size_t nProblems){
 
     return problems;
 }
+
+namespace ai {
+
+    std::ostream& operator<< (std::ostream &out, const Problem& problem) {
+        out << problem.getInitialState() << "~>" << problem.getGoalState();
+        return out;
+    }
+
+}
