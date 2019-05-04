@@ -4,8 +4,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <deque>
-#include <queue>
 #include <algorithm>
 #include <iterator>
 #include <ctime>

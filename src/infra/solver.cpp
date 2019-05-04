@@ -6,7 +6,6 @@ solution_t Solver::Breadth_First_Search (){
     //Inital node
     Node* node = new Node(problem.getInitialState(), 0, 0.0);
     Node* child;
-
     deque_t frontier;
 
     //Inital Test.
@@ -18,6 +17,7 @@ solution_t Solver::Breadth_First_Search (){
     //Add node to the fifo
     frontier.push_back(node);
     //Empty explored.
+    deque_t explored; // Deque to store the Nodes* that was explored. Used to solve the problem.
 
     //Loop over the problem space.
     while( true ){
@@ -58,9 +58,9 @@ solution_t Solver::Breadth_First_Search (){
 
 solution_t Solver::A_Star (){
     //Inital node
-    Node* node = new Node(problem.getInitialState(), 0, 0.0);
+    Node* node = new Node(problem.getInitialState(), 0, problem.HeuristicCost(problem.getInitialState()));
     Node* child;
-    deque_t frontier;
+    priorityQueue_t frontier;
 
     //Inital Test.
     if( problem.goalTest(node->getState()) ){
@@ -68,16 +68,17 @@ solution_t Solver::A_Star (){
         return result; //Nothing to be done
     }
 
-    //Add node to the fifo
-    frontier.push_back(node);
+    //Add node to the priority queue
+    frontier.push(node);
     //Empty explored.
+    deque_t explored; // Deque to store the Nodes* that was explored. Used to solve the problem.    
 
     //Loop over the problem space.
     while( true ){
         if( frontier.empty() ) return Solution(NULL);
 
         //Remove from queue.
-        node = frontier.front(); frontier.pop_front();
+        node = frontier.top(); frontier.pop();
         explored.push_back(node);
 
         #ifdef PRINT_EXEC
@@ -94,9 +95,9 @@ solution_t Solver::A_Star (){
             #endif
 
             //Test if the node is not in explored or frontier the
-            if( !stateFind(frontier, child->getState()) and !stateFind(explored, child->getState()) ){
+            if( !frontier.contains(child->getState()) and !explored.contains(child->getState()) ){
                 if( problem.goalTest(child->getState()) ) return Solution(child);
-                frontier.push_back(child);
+                frontier.push(child);
             }else{
                 child->~Node();
             }

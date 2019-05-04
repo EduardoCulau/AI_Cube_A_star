@@ -38,10 +38,23 @@ int main(int argc, char **argv)
     Cube::InitializeCube(Setting::cubeSize(), Setting::obstructions());
     Cube::printCube2D();
     problems_t Problems = Problem::createProblems(Setting::routes());
+    Solver* test; solution_t solution;
 
     /* Print all problems */
     for(auto p : Problems){
-        std::cout << p << std::endl;
+        printf("Criando\n");
+        test = new Solver(p);
+        printf("A_Star\n");
+        solution = test->A_Star();
+        if( solution.empty() ){
+            std::cout <<"            NO SOLUTION              "<< std::endl;
+        }else{
+            std::cout << p << std::endl;
+            for( auto node : solution ){
+              Node::printSolutionNode(node);
+            }
+        }
+        printf("END FOR\n\n");
     }
 
     /* Set the Problem wiht parsed arguments */

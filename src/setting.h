@@ -147,7 +147,7 @@ public:
 
         /* Check arguments values */
         if( get()->_cubeSize < 3 ){
-            std::cout<<"The cube musto to be at least 3x3x3."<<std::endl; valid = false;
+            std::cout<<"The cube must to be at least 3x3x3."<<std::endl; valid = false;
         }
 
         if( get()->_obstructions < 0 ){
@@ -162,7 +162,7 @@ public:
             std::cout<<"Must to have at least 1 path do be done."<<std::endl; valid = false;
         }
 
-        if( get()->_routes > get()->maxRoutes("permutation") ){
+        if( get()->_routes > get()->maxRoutes("permutation") && get()->maxRoutes("permutation") > 0){
             std::cout<<"The max number of routes in that cube is "<<  get()->maxRoutes("permutation") << "." << std::endl; valid = false;
         }
 
@@ -192,7 +192,7 @@ public:
         if( type == "combination")
             return (size_t) (permut / 2.0);
         else
-            return -1;
+            return 0;
     }
 
 

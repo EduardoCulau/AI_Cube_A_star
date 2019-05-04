@@ -16,7 +16,7 @@ namespace ai {
  *      ° Create a child node
  *
  * @author      Eduardo Culau
- * @version     1.5
+ * @version     1.6
  * @since       1.3
  */
 class Node

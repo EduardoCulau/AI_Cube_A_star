@@ -4,18 +4,19 @@
 #include "../global.h"
 #include "problem.h"
 #include "node.h"
+#include "queues.h"
 
 namespace ai {
 
 /**
  * Deque to store the Nodes pointers.
  */
-typedef std::deque<Node*>  deque_t;
+typedef ai::deque<Node*>  deque_t;
 
 /**
  * Priority queue to store the Nodes pointers.
  */
-typedef std::priority_queue<Node*, std::vector<Node*>, Node>  priorityQueue_t;
+typedef ai::priority_queue<Node*, std::vector<Node*>, Node>  priorityQueue_t;
 
 
 /**
@@ -25,7 +26,7 @@ typedef std::vector<const Node*> solution_t;
 
 
 /**
- * Solver is a Singleton Class that defines the solver of the problem.
+ * Solver is a Class that defines the solver of the problem.
  * It has argument and method like:
  *      ° Frontier
  *      ° Explored
@@ -33,12 +34,30 @@ typedef std::vector<const Node*> solution_t;
  *      ° A*
  *
  * @author      Eduardo Culau
- * @version     1.6
+ * @version     1.7
  * @since       1.4
  */
 class Solver
 {
 public:
+
+    /**
+     * Private Constructor 
+     */   
+    Solver(){}
+
+    /**
+     * Private Constructor 
+     */   
+    Solver(const Problem &problem){
+        this->problem = problem;
+    }
+
+    /**
+     * Private Destructor
+     */
+    ~Solver(){}
+
     /**
      * Applies the Breadth First Search on the problem and solve it.
      *
@@ -62,38 +81,31 @@ public:
     solution_t Solution (const Node* node);
 
     /**
-     * Travel back to the origin to get all solution nodes.
+     * Get the problem to be solved
      *
-     * @param  node       pointer of the last node
-     * @return solution_t solution of the problem
+     * @return Problem& the problem to be solved
+     * @see    Problem  
      */
-    const Problem& getProblem () const {return problem;}
+    inline const Problem& getProblem () const {return problem;}
+
+    /**
+     * Set the problem to be solved
+     *
+     * @param  problem the problem to be solved
+     */
+    inline void setProblem (const Problem &problem) { this->problem = problem; }
 
 
 private:
 
     /**
-     * Private Constructor 
-     */   
-    Solver(){}
-
-    /**
-     * Private Destructor
-     */
-    ~Solver(){}
-
-    /**
-     * Applies the Breadth First Search on the problem and solve it.
+     * Find a state inside the queue
      *
-     * @param  node       pointer of the last node
-     * @return solution_t solution of the problem
+     * @param  dq    a deque
+     * @param  state the state
+     * @return bool  true if the state is inside the deque
      */
     static bool stateFind (const deque_t& dq, const State& state);
-
-    /**
-     * Deque to store the Nodes* that was explored. Used to solve the problem.
-     */  
-    deque_t explored;
 
     /**
      * Problem to be solved.

@@ -23,7 +23,7 @@ typedef std::vector<Problem> problems_t;
  *      ° Valid action (operators)
  *
  * @author      Eduardo Culau
- * @version     1.6
+ * @version     1.7
  * @since       1.2
  */
 class Problem

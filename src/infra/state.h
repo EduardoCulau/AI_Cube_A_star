@@ -14,7 +14,7 @@ namespace ai {
  *      ° Define a print method to show the state.
  *
  * @author      Eduardo Culau
- * @version     1.5
+ * @version     1.6
  * @since       1.1
  */
 class State

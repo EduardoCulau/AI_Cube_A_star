@@ -50,13 +50,13 @@ cleanAll:
 
 .PHONY: runTest
 runTest:
-	../bin/$(BFILE) -c 3 -o 10 -r 10 -t 1
+	../bin/$(BFILE) -c 3 -o 3 -r 1 -t 1
 
 .PHONY: compileAndTest
 compileAndTest:
 	echo "\n\tCLEANING\n";
 	make cleanAll
 	echo "\n\tCOMPILING\n";
-	make -j
+	make -j PRINT=1
 	echo "\n\tTESTING\n";
 	make runTest
