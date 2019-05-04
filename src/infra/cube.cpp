@@ -107,11 +107,6 @@ void Cube::printCube2D (){
     std::cout << std::endl;
 }
 
-size_t Cube::numberOfObstructions () {
-    /* Ceil( c^3 * p/100 ) */
-    return (size_t) std::ceil( std::pow( (float) get()->getSize(), 3) * ((float) get()->getPercent() ) / 100.0 ); 
-}
-
 Position Cube::getRandomPosition () {
     size_t x = std::rand() % get()->getSize();
     size_t y = std::rand() % get()->getSize();
@@ -119,18 +114,13 @@ Position Cube::getRandomPosition () {
     return Position(x,y,z);
 }
 
-/**
- * Check if an axis is inside the axis of the cube.
- *
- * @return cost_t true if is inside else false.
- */
 cost_t Cube::linearDistance (const Position &origin, const Position &goal) {
     /* Compute the diference */
-    Position diference = goal - origin;
+    Position dif = goal - origin;
     /* Compute the power */
-    size_t x2 = std::pow( diference.getX() ); 
-    size_t y2 = std::pow( diference.getY() ); 
-    size_t z2 = std::pow( diference.getZ() );
+    size_t x2 = std::pow(dif.getX(),2); 
+    size_t y2 = std::pow(dif.getY(),2); 
+    size_t z2 = std::pow(dif.getZ(),2);
     /* Compute the sqrt */
     return std::sqrt((cost_t) x2 + y2 + z2);
 }

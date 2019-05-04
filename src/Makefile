@@ -54,9 +54,9 @@ runTest:
 
 .PHONY: compileAndTest
 compileAndTest:
-	echo "\nCLEANING\n";
+	echo "\n\tCLEANING\n";
 	make cleanAll
-	echo "\nCOMPILING\n";
+	echo "\n\tCOMPILING\n";
 	make -j
-	echo "\nTESTING\n";
+	echo "\n\tTESTING\n";
 	make runTest

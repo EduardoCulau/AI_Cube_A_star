@@ -109,6 +109,15 @@ public:
     inline static size_t StepCost ( const State &state, const action_t &action ) { return 1; }
 
     /**
+     * Compute the heuristic cost a State. 
+     * Currently is always 1.
+     *
+     * @param  state  existing state
+     * @return cost_t the cost of aply this action.
+     */
+    inline cost_t HeuristicCost ( const State &state) const { return Cube::linearDistance(state.getPosition(), this->getGoalState().getPosition()); }
+
+    /**
      * Test if a state is the goal state. 
      *
      * @param  state  existing state

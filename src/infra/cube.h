@@ -162,10 +162,11 @@ public:
 
     /**
      * Return the number of obstructions.
+     * Ceil( c^3 * p/100 )
      *
      * @return size_t number of obstructions
      */    
-    static size_t numberOfObstructions();
+    static size_t numberOfObstructions() { return (size_t) std::ceil( std::pow( (float) get()->getSize(), 3) * ((float) get()->getPercent() ) / 100.0 ); }
 
     /**
      * Get a random position within the cube.
@@ -179,7 +180,7 @@ public:
      *
      * @return cost_t true if is inside else false.
      */
-    inline static cost_t linearDistance (const Position &origin, const Position &goal);
+    static cost_t linearDistance (const Position &origin, const Position &goal);
 
 private:
 

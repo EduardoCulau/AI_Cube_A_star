@@ -41,7 +41,7 @@ public:
      * @param  pathCost cost of the node
      * @return Node     an object of class Node
      */
-    Node(const State& state, const size_t pathCost);
+    Node(const State& state, const size_t pathCost, const cost_t heuristic);
 
     /**
      * Creates a Node, setting the parent, state, action and the path Cost.
@@ -52,7 +52,7 @@ public:
      * @param  pathCost cost of the node
      * @return Node     an object of class Node
      */
-    Node(Node* parent, const State& state, const action_t& action, const size_t pathCost);
+    Node(Node* parent, const State& state, const action_t& action, const size_t pathCost, const cost_t heuristic);
 
     /**
      * Creates a Node, setting the parent and action.
@@ -61,7 +61,7 @@ public:
      * @param  action   action applied 
      * @return Node     an object of class Node
      */
-    Node(Node* parent, const action_t& action);
+    Node(Node* parent, const action_t& action, const Problem& Problem);
 
     /**
      * Destructor
@@ -89,7 +89,7 @@ public:
      * @return cost_t total cost
      */
     cost_t getFCost()        const{ return _FCost; }
-    
+
     /**
      * Get the parent node of the node.
      *
@@ -111,7 +111,7 @@ public:
      * @param  action taken action
      * @return Node*  pointer to the child node
      */  
-    static Node* childNode(Node* parent, const action_t& action);
+    static Node* childNode(Node* parent, const action_t& action, const Problem& Problem);
 
     /**
      * Static function to print a node as the current one.

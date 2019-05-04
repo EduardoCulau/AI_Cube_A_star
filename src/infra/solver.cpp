@@ -4,14 +4,14 @@ using namespace ai;
 
 solution_t Solver::Breadth_First_Search (){
     //Inital node
-    Node* node = new Node(problem.getInitialState(), 0.0);
+    Node* node = new Node(problem.getInitialState(), 0, 0.0);
     Node* child;
 
     deque_t frontier;
 
     //Inital Test.
     if( problem.goalTest(node->getState()) ){
-        solution_t result; result.push_back(new Node(NULL, problem.getGoalState(), action_t(0,0,0), 0));
+        solution_t result; result.push_back(new Node(NULL, problem.getGoalState(), action_t(0,0,0), 0, 0.0));
         return result; //Nothing to be done
     }
 
@@ -34,7 +34,7 @@ solution_t Solver::Breadth_First_Search (){
 
         //Apply all action
         for(auto action : problem.actions(node->getState())){
-            child = Node::childNode(node, action);
+            child = Node::childNode(node, action, problem);
 
             #ifdef PRINT_EXEC
                 Node::printChieldNode(child);
@@ -58,13 +58,13 @@ solution_t Solver::Breadth_First_Search (){
 
 solution_t Solver::A_Star (){
     //Inital node
-    Node* node = new Node(problem.getInitialState(), 0.0);
+    Node* node = new Node(problem.getInitialState(), 0, 0.0);
     Node* child;
     deque_t frontier;
 
     //Inital Test.
     if( problem.goalTest(node->getState()) ){
-        solution_t result; result.push_back(new Node(NULL, problem.getGoalState(), action_t(0,0,0), 0));
+        solution_t result; result.push_back(new Node(NULL, problem.getGoalState(), action_t(0,0,0), 0, 0.0));
         return result; //Nothing to be done
     }
 

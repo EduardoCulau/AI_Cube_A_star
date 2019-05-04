@@ -2,30 +2,32 @@
 
 using namespace ai;
 
-Node::Node(const State& state, const size_t pathCost){
+Node::Node(const State& state, const size_t pathCost, const cost_t heuristic){
     this->_parent = NULL;
     this->_state  = state;
     this->_pathCost = pathCost;
+    this->_FCost    = (cost_t) this->_pathCost + heuristic;
     this->_action   = action_t();
 }
 
-Node::Node(Node* parent, const State& state, const action_t& action, const size_t pathCost){
+Node::Node(Node* parent, const State& state, const action_t& action, const size_t pathCost, const cost_t heuristic){
     this->_parent = parent;
     this->_state  = state;
     this->_action = action;
     this->_pathCost = pathCost;
+    this->_FCost    = (cost_t) this->_pathCost + heuristic;
 }
 
-Node::Node(Node* parent, const action_t& action, const Problem& problem){
+Node::Node(Node* parent, const action_t& action, const Problem& Problem){
     this->_parent = parent;
     this->_action = action;
     this->_state  = Problem::Result(parent->getState(), action);
     this->_pathCost = parent->getPathCost() + Problem::StepCost(parent->getState(), action);
-    this->_FCost    = this->_pathCost + 
+    this->_FCost    = (cost_t) this->_pathCost + Problem.HeuristicCost(this->_state);
 }
 
-Node* Node::childNode(Node* parent, const action_t& action) {
-    Node* cNode = new Node(parent, action);
+Node* Node::childNode(Node* parent, const action_t& action, const Problem& Problem) {
+    Node* cNode = new Node(parent, action, Problem);
     return cNode; 
 }
 
