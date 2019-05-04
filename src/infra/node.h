@@ -154,15 +154,11 @@ public:
     inline bool operator() (Node* lhs, Node* rhs) { return lhs->getFCost() > rhs->getFCost(); }
 
     /**
-     * Operator <<. So it's possible to print the Node just put it on the std::cout method.
+     * Static function to print a node as the solution one.
      *
-     * @param  out           existing std::ostream
-     * @param  node          node to be printed
-     * @return std::ostream& std::ostream whith the State data
-     * @see    std::ostream
+     * @return std::string string of Node content.
      */  
-    friend std::ostream& operator<< (std::ostream &out, const Node& node);
-
+    std::string toStringFCost ();
 
 private:
     /**

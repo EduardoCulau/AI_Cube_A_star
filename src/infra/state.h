@@ -98,6 +98,14 @@ public:
     inline const Position& getPosition() const { return _position; }
 
     /**
+     * Convert the state to string.
+     *
+     * @return std::string the position of the state
+     */
+    inline std::string toString() const { return _position.toString();}
+
+
+    /**
      * Operator <<. So it's possible to print the state just put it on the std::cout method.
      *
      * @param  out           existing std::ostream

@@ -52,11 +52,6 @@ void Node::printSolutionNode (const Node* node){
 	std::cout <<"   COST = " << node->getPathCost() << "	ACTION = " << node->getAction() << std::endl << node->getState() << std::endl << std::endl;
 }
 
-namespace ai {
-
-    std::ostream& operator<< (std::ostream &out, const Node& node) {
-        out << node->node->getState() << " | TOTAL_COST = "<< node->getFCost();
-        return out;
-    }
-
+std::string Node::toStringFCost (){
+    return std::string( this->getState().toString() + " | TOTAL_COST = " + std::to_string(this->getFCost()) );
 }

@@ -77,6 +77,8 @@ solution_t Solver::A_Star (){
     while( true ){
         if( frontier.empty() ) return Solution(NULL);
 
+        printf("PRINTANDO FRONTIER\n");
+        std::cout << frontier << std::endl;
         //Remove from queue.
         node = frontier.top(); frontier.pop();
         explored.push_back(node);

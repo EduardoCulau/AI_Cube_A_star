@@ -111,7 +111,7 @@ public:
         auto nodeIt = pq.c.begin();
         auto nodeLast = pq.c.end();
         for( ; nodeIt != nodeLast; ++nodeIt ){
-            out << (*nodeIt) << std::endl;
+            out << (*nodeIt)->toStringFCost() << std::endl;
         }    
         return out;
     }

@@ -159,10 +159,17 @@ public:
 	}
 
 	/**
+	 * To string
+	 */
+	inline std::string toString () const {
+		return std::string("(" + std::to_string(getX()) + "," + std::to_string(getY()) + "," + std::to_string(getZ()) + ")" ); 
+	}
+
+	/**
 	 * Operator << (print) usend to Position. 
 	 */
 	friend inline std::ostream& operator<< (std::ostream &out, const Position &rhs) {
-		out <<"(" << rhs.getX() << "," << rhs.getY() << "," << rhs.getZ() << ")";
+		out << rhs.toString();
 		return out;
 	}
 
