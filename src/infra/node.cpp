@@ -51,3 +51,12 @@ void Node::printChieldNode_End(){
 void Node::printSolutionNode (const Node* node){
 	std::cout <<"   COST = " << node->getPathCost() << "	ACTION = " << node->getAction() << std::endl << node->getState() << std::endl << std::endl;
 }
+
+namespace ai {
+
+    std::ostream& operator<< (std::ostream &out, const Node& node) {
+        out << node->node->getState() << " | TOTAL_COST = "<< node->getFCost();
+        return out;
+    }
+
+}

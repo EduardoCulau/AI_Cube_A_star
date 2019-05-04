@@ -153,6 +153,17 @@ public:
      */  
     inline bool operator() (Node* lhs, Node* rhs) { return lhs->getFCost() > rhs->getFCost(); }
 
+    /**
+     * Operator <<. So it's possible to print the Node just put it on the std::cout method.
+     *
+     * @param  out           existing std::ostream
+     * @param  node          node to be printed
+     * @return std::ostream& std::ostream whith the State data
+     * @see    std::ostream
+     */  
+    friend std::ostream& operator<< (std::ostream &out, const Node& node);
+
+
 private:
     /**
      * Pointer to the parent Node

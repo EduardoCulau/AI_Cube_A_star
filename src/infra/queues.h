@@ -64,6 +64,12 @@ public:
         Container,
         Compare>::container_type::const_iterator const_iterator;
 
+    /**
+     * Find a something inside the priority_queue
+     *
+     * @param  val             thing
+     * @return const_iterator  result (&thing) if inside else c.end().
+     */
     const_iterator find(const T&val) const
     {
         auto first = this->c.cbegin();
@@ -91,7 +97,24 @@ public:
             }
         }
         return false;
-    }    
+    }
+
+    /**
+     * Operator <<. So it's possible to print the Problem just put it on the std::cout method.
+     *
+     * @param  out           existing std::ostream
+     * @param  problem       problem to be printed
+     * @return std::ostream& std::ostream whith the State data
+     * @see    std::ostream
+     */  
+    friend std::ostream& operator<< (std::ostream &out, const priority_queue& pq){
+        auto nodeIt = pq.c.begin();
+        auto nodeLast = pq.c.end();
+        for( ; nodeIt != nodeLast; ++nodeIt ){
+            out << (*nodeIt) << std::endl;
+        }    
+        return out;
+    }
 };
 
 
