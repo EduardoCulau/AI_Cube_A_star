@@ -89,14 +89,7 @@ public:
      * @return cost_t total cost
      */
     cost_t getFCost()        const{ return _FCost; }
-
-    /**
-     * Get the heuristic (H) cost.
-     *
-     * @return cost_t heuristic cost
-     */
-    cost_t getHCost()        const{ return _HCost; }
-
+    
     /**
      * Get the parent node of the node.
      *
@@ -182,10 +175,9 @@ private:
     size_t   _pathCost;
 
     /**
-     * Total cost (F) and heuristic (H)
+     * Total cost (F). F = G + H (heuristic)
      */  
-    cost_t   _FCost, _HCost;
-
+    cost_t   _FCost;
 };
 
 }

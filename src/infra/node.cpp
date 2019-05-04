@@ -16,11 +16,12 @@ Node::Node(Node* parent, const State& state, const action_t& action, const size_
     this->_pathCost = pathCost;
 }
 
-Node::Node(Node* parent, const action_t& action){
+Node::Node(Node* parent, const action_t& action, const Problem& problem){
     this->_parent = parent;
     this->_action = action;
     this->_state  = Problem::Result(parent->getState(), action);
     this->_pathCost = parent->getPathCost() + Problem::StepCost(parent->getState(), action);
+    this->_FCost    = this->_pathCost + 
 }
 
 Node* Node::childNode(Node* parent, const action_t& action) {

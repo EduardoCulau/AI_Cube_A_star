@@ -161,18 +161,25 @@ public:
     static void printCube2D ();
 
     /**
-     * Return the number of obstructions
+     * Return the number of obstructions.
      *
      * @return size_t number of obstructions
      */    
-    static size_t numberOfObstructions() { return (size_t) std::ceil( std::pow( (float) get()->getSize(), 3) * ((float) get()->getPercent() ) / 100.0 ); }
+    static size_t numberOfObstructions();
 
     /**
      * Get a random position within the cube.
      *
      * @return Position a random position within the cube
      */
-    static Position getRandomPosition () { return Position(std::rand() % get()->getSize(), std::rand() % get()->getSize(), std::rand() % get()->getSize()); }
+    static Position getRandomPosition ();
+
+    /**
+     * Check if an axis is inside the axis of the cube.
+     *
+     * @return cost_t true if is inside else false.
+     */
+    inline static cost_t linearDistance (const Position &origin, const Position &goal);
 
 private:
 

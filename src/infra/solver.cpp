@@ -87,7 +87,7 @@ solution_t Solver::A_Star (){
 
         //Apply all action
         for(auto action : problem.actions(node->getState())){
-            child = Node::childNode(node, action);
+            child = Node::childNode(node, action, problem);
 
             #ifdef PRINT_EXEC
                 Node::printChieldNode(child);
