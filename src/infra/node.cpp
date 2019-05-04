@@ -55,3 +55,10 @@ void Node::printSolutionNode (const Node* node){
 std::string Node::toStringFCost (){
     return std::string( this->getState().toString() + " | TOTAL_COST = " + std::to_string(this->getFCost()) );
 }
+
+void Node::update(Node* refNode){
+    this->_parent = refNode->getParent();
+    this->_action = refNode->getAction();
+    this->_pathCost = refNode->getPathCost();
+    this->_FCost  = refNode->getFCost();
+}

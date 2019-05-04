@@ -59,7 +59,7 @@ solution_t Solver::Breadth_First_Search (){
 solution_t Solver::A_Star (){
     //Inital node
     Node* node = new Node(problem.getInitialState(), 0, problem.HeuristicCost(problem.getInitialState()));
-    Node* child;
+    Node* child, *aux;
     priorityQueue_t frontier;
 
     //Inital Test.
@@ -77,8 +77,6 @@ solution_t Solver::A_Star (){
     while( true ){
         if( frontier.empty() ) return Solution(NULL);
 
-        printf("PRINTANDO FRONTIER\n");
-        std::cout << frontier << std::endl;
         //Remove from queue.
         node = frontier.top(); frontier.pop();
         explored.push_back(node);
@@ -90,16 +88,34 @@ solution_t Solver::A_Star (){
 
         //Apply all action
         for(auto action : problem.actions(node->getState())){
+            //Create a new node (updateing its F, G and H cost).
             child = Node::childNode(node, action, problem);
 
+            //Print the new child node.
             #ifdef PRINT_EXEC
                 Node::printChieldNode(child);
             #endif
 
-            //Test if the node is not in explored or frontier the
-            if( !frontier.contains(child->getState()) and !explored.contains(child->getState()) ){
-                if( problem.goalTest(child->getState()) ) return Solution(child);
-                frontier.push(child);
+            //Check if it was explored
+            if( !explored.contains(child->getState()) ){
+
+                //Check if the node is in the frontier.
+                auto fPointer = frontier.find(child->getState());
+                if( fPointer != frontier.cend() ){
+                    //Compare the cost of the child with the one in the frontier.
+                    if( child->getFCost() < (*fPointer)->getFCost() ){
+                        //If child has less cost, update this node in the frontier.
+                        aux = *fPointer; *fPointer = child;
+                        aux->~Node(); //Clear the aux (old) node.                     
+                    }else{
+                        child->~Node(); //Clear the child node.
+                    }
+                }else{
+                    //Check if the new node is the solution.
+                    if( problem.goalTest(child->getState()) ) return Solution(child);
+                    frontier.push(child);
+                }
+
             }else{
                 child->~Node();
             }

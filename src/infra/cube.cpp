@@ -95,7 +95,7 @@ void Cube::printCube2D (){
     /* Create the cube and put all positions to false*/
     for(int z = 0; z < get()->getSize(); z++){
         std::cout << "Cube [x][y][" << z << "]" << std::endl << " {" << std::endl;
-            for(int y = 0; y < get()->getSize(); y++){
+            for(int y = get()->getSize()-1; y >= 0; y--){
                 std::cout << "\t";
                 for(int x = 0; x < get()->getSize(); ++x, std::cout <<  " | "){
                     std::cout << get()->isObstructed(x,y,z);

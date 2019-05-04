@@ -58,11 +58,9 @@ template<
 class priority_queue : public std::priority_queue<T, Container, Compare>
 {
 public:
-    typedef typename
-        std::priority_queue<
-        T,
-        Container,
-        Compare>::container_type::const_iterator const_iterator;
+
+    typedef typename std::priority_queue< T, Container, Compare>::container_type::const_iterator const_iterator;
+    typedef typename std::priority_queue< T, Container, Compare>::container_type::iterator       iterator;
 
     /**
      * Find a something inside the priority_queue
@@ -70,15 +68,23 @@ public:
      * @param  val             thing
      * @return const_iterator  result (&thing) if inside else c.end().
      */
-    const_iterator find(const T&val) const
-    {
-        auto first = this->c.cbegin();
-        auto last = this->c.cend();
+    iterator find(const State &state) {
+        auto first = this->c.begin();
+        auto last = this->c.end();
         while (first!=last) {
-            if (*first==val) return first;
+            if ((*first)->getState() == state) return first;
             ++first;
         }
         return last;
+    }
+
+    /**
+     * Return the end pointer of the container.
+     *
+     * @return const_iterator  the end() pointer
+     */
+    const_iterator cend() const {
+        return this->c.cend();
     }
 
     /**
@@ -97,6 +103,15 @@ public:
             }
         }
         return false;
+    }
+
+    /**
+     * Reorder the priority queue.
+     */
+    void reorder() {
+        auto aux = this->top();
+        this->pop();
+        this->push(aux);
     }
 
     /**

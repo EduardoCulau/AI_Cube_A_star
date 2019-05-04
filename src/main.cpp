@@ -5,6 +5,7 @@
 #include "infra/node.h"
 #include "infra/solver.h"
 #include "infra/cube.h"
+#include "infra/queues.h"
 
 using namespace ai;
 
@@ -42,6 +43,7 @@ int main(int argc, char **argv)
 
     /* Print all problems */
     for(auto p : Problems){
+         std::cout << p << std::endl;
         printf("Criando\n");
         test = new Solver(p);
         printf("A_Star\n");

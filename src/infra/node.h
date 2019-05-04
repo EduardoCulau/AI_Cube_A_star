@@ -95,7 +95,7 @@ public:
      *
      * @return Node* pointer to the parent node.
      */
-    const Node* getParent()     const{ return _parent;   }
+    Node* getParent()     const{ return _parent;   }
 
     /**
      * Get the action of the node
@@ -112,6 +112,7 @@ public:
      * @return Node*  pointer to the child node
      */  
     static Node* childNode(Node* parent, const action_t& action, const Problem& Problem);
+
 
     /**
      * Static function to print a node as the current one.
@@ -159,6 +160,13 @@ public:
      * @return std::string string of Node content.
      */  
     std::string toStringFCost ();
+
+    /**
+     * Update a node based on other node.
+     *
+     * @param refNode node used as reference to update.
+     */  
+    void update(Node* refNode);
 
 private:
     /**
