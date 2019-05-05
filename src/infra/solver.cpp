@@ -76,7 +76,7 @@ solution_t Solver::A_Star (bool path){
     //Loop over the problem space.
     while( true ){
         if( frontier.empty() ) {
-            explored.clear();
+            explored.deleteAll(); frontier.deleteAll(); /* Avoid memory leaks */
             return Solution(NULL, path);
         }
         /* Avoid memory leak */
@@ -118,7 +118,7 @@ solution_t Solver::A_Star (bool path){
                 }else{
                     //Check if the new node is the solution.
                     if( problem.goalTest(child->getState()) ) {
-                        explored.clear();
+                        explored.deleteAll(); frontier.deleteAll(); /* Avoid memory leaks */
                         return Solution(child, path);
                     }
                     frontier.push(child);

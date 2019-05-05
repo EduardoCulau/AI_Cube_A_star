@@ -40,6 +40,19 @@ public:
         }
         return false;
     }
+
+    /**
+     * Deletes all data.
+     */
+    void deleteAll() {
+        auto nodeIt = this->begin();
+        auto nodeLast = this->end();
+        //Find the state inside the deque.
+        for( ; nodeIt != nodeLast; ++nodeIt ){
+            delete *nodeIt;
+        }
+    }
+
 };
 
 /**
@@ -129,6 +142,18 @@ public:
             out << (*nodeIt)->toStringFCost() << std::endl;
         }    
         return out;
+    }
+
+    /**
+     * Deletes all data.
+     */
+    void deleteAll() {
+        auto nodeIt = this->c.begin();
+        auto nodeLast = this->c.end();
+        //Find the state inside the deque.
+        for( ; nodeIt != nodeLast; ++nodeIt ){
+            delete *nodeIt;
+        }
     }
 };
 

@@ -178,24 +178,7 @@ int main(int argc, char **argv)
     for( auto t = threads.begin(); t != threads.end(); t++){
         t->join();
     }
-    
-//
-//    /* Print inital and goal state */
-//    std::cout <<"		INITIAL STATE		" << std::endl
-//    		  << Problem::getInitialState()   << std::endl << std::endl
-//    		  <<"		GOAL    STATE		" << std::endl
-//    		  << Problem::getGoalState() 	  << std::endl << std::endl;
-//
-//    /* Print the possible actions to solve the problem */
-//   	std::cout <<"		POSSIBLE ACTIONS    " << std::endl;
-//   	for( auto act : Problem::getAllValidActions() ){
-//   		std::cout << act << " | ";
-//   	}
-//   	std::cout << std::endl << std::endl <<  std::endl;
-//
-//    /* Solve the problem */
-//    solution_t solution;
-//    solution = Solver::Breadth_First_Search();
+
 //
 //    /* Print Solution */
 //    std::cout << std::endl << std::endl
