@@ -2,7 +2,7 @@
 
 using namespace ai;
 
-solution_t Solver::Breadth_First_Search (){
+solution_t Solver::Breadth_First_Search (bool path){
     //Inital node
     Node* node = new Node(problem.getInitialState(), 0, 0.0);
     Node* child;
@@ -34,7 +34,7 @@ solution_t Solver::Breadth_First_Search (){
 
         //Apply all action
         for(auto action : problem.actions(node->getState())){
-            child = Node::childNode(node, action, problem);
+            child = Node::childNode(node, action, problem, path);
 
             #ifdef PRINT_EXEC
                 Node::printChieldNode(child);
@@ -56,7 +56,7 @@ solution_t Solver::Breadth_First_Search (){
 
 }
 
-solution_t Solver::A_Star (){
+solution_t Solver::A_Star (bool path){
     //Inital node
     Node* node = new Node(problem.getInitialState(), 0, problem.HeuristicCost(problem.getInitialState()));
     Node* child, *aux;
@@ -75,7 +75,12 @@ solution_t Solver::A_Star (){
 
     //Loop over the problem space.
     while( true ){
-        if( frontier.empty() ) return Solution(NULL);
+        if( frontier.empty() ) {
+            explored.clear();
+            return Solution(NULL, path);
+        }
+        /* Avoid memory leak */
+        //delete node;
 
         //Remove from queue.
         node = frontier.top(); frontier.pop();
@@ -89,7 +94,7 @@ solution_t Solver::A_Star (){
         //Apply all action
         for(auto action : problem.actions(node->getState())){
             //Create a new node (updateing its F, G and H cost).
-            child = Node::childNode(node, action, problem);
+            child = Node::childNode(node, action, problem, path);
 
             //Print the new child node.
             #ifdef PRINT_EXEC
@@ -106,18 +111,21 @@ solution_t Solver::A_Star (){
                     if( child->getFCost() < (*fPointer)->getFCost() ){
                         //If child has less cost, update this node in the frontier.
                         aux = *fPointer; *fPointer = child;
-                        aux->~Node(); //Clear the aux (old) node.                     
+                        delete aux; /* Avoid memory leaks */                     
                     }else{
-                        child->~Node(); //Clear the child node.
+                        delete child; /* Avoid memory leaks */
                     }
                 }else{
                     //Check if the new node is the solution.
-                    if( problem.goalTest(child->getState()) ) return Solution(child);
+                    if( problem.goalTest(child->getState()) ) {
+                        explored.clear();
+                        return Solution(child, path);
+                    }
                     frontier.push(child);
                 }
 
             }else{
-                child->~Node();
+                delete child; /* Avoid memory leaks */
             }
         }
 
@@ -129,15 +137,17 @@ solution_t Solver::A_Star (){
 }
 
 
-solution_t Solver::Solution (const Node* node){
+solution_t Solver::Solution (const Node* node, bool path){
     solution_t solution;
     if( node == NULL) return solution;
     //Following Parrents pointes to extract all actions.
-    while(node->getParent() != NULL){
-        auto it = solution.begin();
-        solution.insert(it, node);
-        node = node->getParent();
-    }
+    if(path == false) solution.push_back(node);
+    else
+        while(node->getParent() != NULL){
+            auto it = solution.begin();
+            solution.insert(it, node);
+            node = node->getParent();
+        }
     return solution;
 }
 

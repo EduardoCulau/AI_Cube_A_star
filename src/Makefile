@@ -3,10 +3,10 @@ ifeq ($(PRINT),1)
 	CFLAG  = -DPRINT_EXEC
 endif
 TARGET = bin
-OPT    = -O3 -static
+OPT    = -O3
 RM     = rm
 TAG    = ctags
-CC     = g++ -std=c++11 $(OPT) $(WFLAG) $(CFLAG) -I.
+CC     = g++ -std=c++11 $(OPT) $(WFLAG) $(CFLAG) -I. -pthread
 
 CC_OBJS = main.o
 INFRA_OBJS = infra/cube.o infra/state.o infra/node.o infra/problem.o infra/solver.o
@@ -57,6 +57,6 @@ compileAndTest:
 	echo "\n\tCLEANING\n";
 	make cleanAll
 	echo "\n\tCOMPILING\n";
-	make -j PRINT=1
+	make -j $(PRINT)
 	echo "\n\tTESTING\n";
 	make runTest

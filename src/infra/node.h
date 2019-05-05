@@ -52,7 +52,7 @@ public:
      * @param  pathCost cost of the node
      * @return Node     an object of class Node
      */
-    Node(Node* parent, const State& state, const action_t& action, const size_t pathCost, const cost_t heuristic);
+    Node(Node* parent, const State& state, const action_t& action, const size_t pathCost, const cost_t heuristic, bool path = false);
 
     /**
      * Creates a Node, setting the parent and action.
@@ -61,12 +61,12 @@ public:
      * @param  action   action applied 
      * @return Node     an object of class Node
      */
-    Node(Node* parent, const action_t& action, const Problem& Problem);
+    Node(Node* parent, const action_t& action, const Problem& Problem, bool path = false);
 
     /**
      * Destructor
      */
-    ~Node() {}
+    ~Node() {delete _parent; _state.~State(); _action.~Position();}
 
     /**
      * Get the state of the node.
@@ -111,7 +111,7 @@ public:
      * @param  action taken action
      * @return Node*  pointer to the child node
      */  
-    static Node* childNode(Node* parent, const action_t& action, const Problem& Problem);
+    static Node* childNode(Node* parent, const action_t& action, const Problem& Problem, bool path = false);
 
 
     /**
@@ -160,13 +160,6 @@ public:
      * @return std::string string of Node content.
      */  
     std::string toStringFCost ();
-
-    /**
-     * Update a node based on other node.
-     *
-     * @param refNode node used as reference to update.
-     */  
-    void update(Node* refNode);
 
 private:
     /**

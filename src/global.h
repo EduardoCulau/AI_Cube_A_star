@@ -9,6 +9,8 @@
 #include <ctime>
 #include <cmath>
 #include <limits>
+#include <thread>
+#include <mutex>
 
 /* Defined by the compiler */
 //#define PRINT_EXEC
@@ -29,6 +31,21 @@ typedef float 	cost_t;
  * Axis ( x or y or z)
  */
 typedef size_t	axis_t;
+
+/**
+ * Pair <size_t, time_t> that is the result
+ */
+typedef std::pair<size_t, cost_t> result_t;
+
+/**
+ * Make a pair. 
+ */
+#define M_PAIR(lhs, rhs) std::make_pair(lhs, rhs)
+
+/**
+ * A bunch of result_t
+ */
+typedef std::vector<result_t>     results_t;
 
 /**
  * Position is a class that defines a 3D position.

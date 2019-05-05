@@ -10,24 +10,26 @@ Node::Node(const State& state, const size_t pathCost, const cost_t heuristic){
     this->_action   = action_t();
 }
 
-Node::Node(Node* parent, const State& state, const action_t& action, const size_t pathCost, const cost_t heuristic){
-    this->_parent = parent;
+Node::Node(Node* parent, const State& state, const action_t& action, const size_t pathCost, const cost_t heuristic, bool path){
+    if(path == true) this->_parent = parent;
+    else this->_parent = NULL;
     this->_state  = state;
     this->_action = action;
     this->_pathCost = pathCost;
     this->_FCost    = (cost_t) this->_pathCost + heuristic;
 }
 
-Node::Node(Node* parent, const action_t& action, const Problem& Problem){
-    this->_parent = parent;
+Node::Node(Node* parent, const action_t& action, const Problem& Problem, bool path){
+    if(path == true) this->_parent = parent;
+    else this->_parent = NULL;
     this->_action = action;
     this->_state  = Problem::Result(parent->getState(), action);
     this->_pathCost = parent->getPathCost() + Problem::StepCost(parent->getState(), action);
     this->_FCost    = (cost_t) this->_pathCost + Problem.HeuristicCost(this->_state);
 }
 
-Node* Node::childNode(Node* parent, const action_t& action, const Problem& Problem) {
-    Node* cNode = new Node(parent, action, Problem);
+Node* Node::childNode(Node* parent, const action_t& action, const Problem& Problem, bool path) {
+    Node* cNode = new Node(parent, action, Problem, path);
     return cNode; 
 }
 
@@ -49,16 +51,9 @@ void Node::printChieldNode_End(){
 }
 
 void Node::printSolutionNode (const Node* node){
-	std::cout <<"   COST = " << node->getPathCost() << "	ACTION = " << node->getAction() << std::endl << node->getState() << std::endl << std::endl;
+	std::cout <<"   COST = " << node->getPathCost() << "	ACTION = " << node->getAction() << "  STATE = "<< node->getState() << std::endl << std::endl;
 }
 
 std::string Node::toStringFCost (){
     return std::string( this->getState().toString() + " | TOTAL_COST = " + std::to_string(this->getFCost()) );
-}
-
-void Node::update(Node* refNode){
-    this->_parent = refNode->getParent();
-    this->_action = refNode->getAction();
-    this->_pathCost = refNode->getPathCost();
-    this->_FCost  = refNode->getFCost();
 }

@@ -65,7 +65,7 @@ public:
     /**
      * Destructor
      */
-    ~State() {}
+    ~State() {_position.~Position();}
 
     /**
      * Set the positon to the state.

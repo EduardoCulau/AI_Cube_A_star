@@ -56,21 +56,21 @@ public:
     /**
      * Private Destructor
      */
-    ~Solver(){}
+    ~Solver(){problem.~Problem();}
 
     /**
      * Applies the Breadth First Search on the problem and solve it.
      *
      * @return solution_t solution of the problem
      */
-    solution_t Breadth_First_Search ();
+    solution_t Breadth_First_Search (bool path = true);
 
     /**
      * Applies the A* on the problem and solve it.
      *
      * @return solution_t solution of the problem.
      */
-    solution_t A_Star ();
+    solution_t A_Star (bool path = true);
 
     /**
      * Travel back to the origin to get all solution nodes.
@@ -78,7 +78,7 @@ public:
      * @param  node       pointer of the last node
      * @return solution_t solution of the problem
      */
-    solution_t Solution (const Node* node);
+    solution_t Solution (const Node* node, bool path = true);
 
     /**
      * Get the problem to be solved

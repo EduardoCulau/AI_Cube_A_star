@@ -197,7 +197,7 @@ private:
     /**
      * Private Destructor
      */
-    ~Cube(){}
+    ~Cube(){_cube.clear();}
 
     /**
      * Set the size

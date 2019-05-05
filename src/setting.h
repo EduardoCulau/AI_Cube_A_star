@@ -154,21 +154,20 @@ public:
             std::cout<<"Obstructions must to be at least of 0%."<<std::endl; valid = false;
         }
 
-        if( get()->_obstructions > 100 ){
-            std::cout<<"Obstructions must to be at maximum of 100%."<<std::endl; valid = false;
+        if( get()->_obstructions >= 100 ){
+            std::cout<<"Obstructions must to be at maximum of 99%."<<std::endl; valid = false;
         }
 
         if( get()->_routes < 1 ){
             std::cout<<"Must to have at least 1 path do be done."<<std::endl; valid = false;
         }
 
-        if( get()->_routes > get()->maxRoutes("permutation") && get()->maxRoutes("permutation") > 0){
+        if( get()->_routes > get()->maxRoutes("permutation") && get()->maxRoutes("permutation") >= 0){
             std::cout<<"The max number of routes in that cube is "<<  get()->maxRoutes("permutation") << "." << std::endl; valid = false;
         }
 
-        /* Must not have more cannibals than missionaries. */
-        if( get()->_threads < 1 ){
-            std::cout<<"Must to have at least one thread."<<std::endl; valid = false;
+        if( get()->_threads < 1 || get()->_threads >  (int) std::thread::hardware_concurrency()){
+            std::cout<<"Must to have at least 1 and a maximum of "<< std::thread::hardware_concurrency() << " threads." << std::endl; valid = false;
         }
 
         return valid;

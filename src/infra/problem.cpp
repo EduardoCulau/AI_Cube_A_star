@@ -37,7 +37,7 @@ problems_t Problem::createProblems (size_t nProblems){
     /* Create the problems */
     problems_t problems;
     Position initialPosit, goalPosit;
-    size_t problem = 0; 
+    size_t problem = 0; size_t invalid = 0; 
 
     /* Stay here until the ob */
     while(problem < nProblems){
@@ -48,7 +48,11 @@ problems_t Problem::createProblems (size_t nProblems){
         if( !Cube::isObstructed(initialPosit) && !Cube::isObstructed(goalPosit) && initialPosit != goalPosit){
             problems.emplace_back(initialPosit, goalPosit);
             problem++;
+        }else{
+            invalid++;
         }
+
+        if(invalid > nProblems*100) break;
     }
 
     return problems;

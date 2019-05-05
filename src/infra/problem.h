@@ -46,7 +46,7 @@ public:
     /**
      * Destructor
      */
-    ~Problem(){}
+    ~Problem(){_initialState.~State(); _goalState.~State();}
 
     /**
      * Get the initial state
