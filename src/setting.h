@@ -85,6 +85,16 @@ public:
     static void threads (int threads) { get()->_threads = threads; }
 
     /**
+     * Set File
+     */
+    static void file (std::string file) { get()->_file = file; }
+
+    /**
+     * Get File
+     */
+    static const std::string& file () { return get()->_file; }
+
+    /**
      * Read the arguments sent to the program.
      *
      * @param  argc number of arguments
@@ -118,6 +128,10 @@ public:
             } else if( arg == "-t" && i < argc ) {
                 Setting::threads(std::atoi(argv[i++]));
 
+            /* Number of threads */
+            } else if( arg == "-f" && i < argc ) {
+                Setting::file(std::string(argv[i++]));
+
             } else {
                 std::cerr<<"Unknown option: "<<arg<<std::endl;
                 return false;
@@ -137,11 +151,12 @@ public:
 
         if( Setting::getHelp() ){
             std::cout<<"    Program Argumments  "<<std::endl
-                     <<"-c [INT] : size of the cube"<<std::endl
-                     <<"-o [INT] : percentage of obstructions"<<std::endl
-                     <<"-r [INT] : number of routes, 0 to all"<<std::endl
-                     <<"-t [INT] : number of threads, 0 to all"<<std::endl
-                     <<"-h       : show this text"<<std::endl;
+                     <<"-c [INT]  : size of the cube"<<std::endl
+                     <<"-o [INT]  : percentage of obstructions"<<std::endl
+                     <<"-r [INT]  : number of routes, 0 to all"<<std::endl
+                     <<"-t [INT]  : number of threads, 0 to all"<<std::endl
+                     <<"-f [FILE] : file to receive the results"<<std::endl
+                     <<"-h        : show this text"<<std::endl;
             return false;
         }
 
@@ -169,6 +184,11 @@ public:
         if( get()->_threads < 1 || get()->_threads >  (int) std::thread::hardware_concurrency()){
             std::cout<<"Must to have at least 1 and a maximum of "<< std::thread::hardware_concurrency() << " threads." << std::endl; valid = false;
         }
+
+        if( get()->_file.empty()){
+            std::cout<<"Please insert a file." << std::endl; valid = false;
+        }
+
 
         return valid;
     }
@@ -225,29 +245,34 @@ private:
     static bool getHelp    () { return get()->_help; }
 
     /**
-     * Number of missionaries.
+     * Cube size
      */
     size_t  _cubeSize = 0;
 
     /**
-     * Number of cannibals.
+     * Obstructions
      */    
     size_t  _obstructions = -1;
 
     /**
-     * Boar capacity.
+     * Routes
      */ 
     size_t  _routes = 0;
 
     /**
-     * Boar capacity.
+     * Threads
      */ 
     size_t  _threads = 0;
 
     /**
+     * File
+     */ 
+    std::string  _file;
+
+    /**
      * Show help text.
      */ 
-    bool _help            = false;
+    bool _help = false;
 };
 
 /* Set the instance to 0, so only one object can be create. */

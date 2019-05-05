@@ -26,9 +26,7 @@ public:
      * @return State  an object of class Position
      */
     Data(problems_t::const_iterator start, problems_t::const_iterator end, ai::size_t id){
-        this->_start    = start;
-        this->_end      = end;
-        this->_id       = id;
+        this->_start = start; this->_end = end; this->_id = id;
     }
 
     /**
@@ -39,6 +37,7 @@ public:
     problems_t::const_iterator getStart() { return _start;}
     problems_t::const_iterator getEnd() { return _end;}
     const results_t& getResults() {return _results;}
+    void emplace_back(ai::size_t cost, double time) {_results.emplace_back(cost, time);}
     ai::size_t getId() {return _id;}
 
 private:
@@ -92,10 +91,19 @@ void threadRun (Data* data){
     int totalProblem = data->getEnd() - data->getStart();
     int counter = 1;
 
+    /* Loop over the problems */
     for(auto pIt = data->getStart(); pIt != data->getEnd(); pIt++){
+        /* Set a solver */
         Problem problem = *pIt;
         solver = new Solver(problem);
-        solution = solver->A_Star(false);
+
+        /* Solver the problem and measure the time */
+        auto start = std::chrono::high_resolution_clock::now();
+            solution = solver->A_Star(false);
+        auto finish = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = finish - start;
+
+        /* Print the solution */
         if( solution.empty() ){
             mutex_print.lock();
                 std::cout << "THREAD = " << data->getId() << " | " << problem << " | NO SOLUTION" << " | COMPUTADOS " << counter << "/" << totalProblem << std::endl;
@@ -105,7 +113,11 @@ void threadRun (Data* data){
             mutex_print.lock();
                 std::cout << "THREAD = " << data->getId() << " | " << problem << " | COST = " << node->getPathCost() << " | COMPUTADOS " << counter << "/" << totalProblem << std::endl;
             mutex_print.unlock();
+
+            /* Save the result */
+            data->emplace_back( node->getPathCost(), elapsed.count());
         }
+
         delete solver; counter++;
     }
 
@@ -179,20 +191,24 @@ int main(int argc, char **argv)
         t->join();
     }
 
-//
-//    /* Print Solution */
-//    std::cout << std::endl << std::endl
-//              <<"-------------------------------------" << std::endl
-//              <<"               SOLUTION              " << std::endl
-//              <<"-------------------------------------" << std::endl << std::endl;
-//    if( solution.empty() ){
-//      std::cout <<"            NO SOLUTION              "<< std::endl;
-//    }else{
-//      for( auto node : solution ){
-//        Node::printSolutionNode(node);
-//      }
-//    }
-//
+    std::cout << std::endl << std::endl
+              <<"-------------------------------------" << std::endl
+              <<"              SOLUTIONS              " << std::endl
+              <<"-------------------------------------" << std::endl;
+
+    /* Put results in a file to generate a grath later. */
+    std::ofstream csvFile;
+    csvFile.open(Setting::file());
+    if(csvFile.is_open()){
+        for( auto d : datas){
+            for( auto r : d.getResults()){
+                std::cout << r <<std::endl;
+                csvFile << r << std::endl;
+            }
+        }
+    }
+
+    /* End */
     return 0;
 }
 

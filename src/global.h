@@ -11,6 +11,8 @@
 #include <limits>
 #include <thread>
 #include <mutex>
+#include <chrono>
+#include <fstream>
 
 /* Defined by the compiler */
 //#define PRINT_EXEC
@@ -33,19 +35,23 @@ typedef float 	cost_t;
 typedef size_t	axis_t;
 
 /**
- * Pair <size_t, time_t> that is the result
+ * Pair <cost, time> that is the result
  */
-typedef std::pair<size_t, cost_t> result_t;
+typedef std::pair<size_t, double> result_t;
 
 /**
- * Make a pair. 
+ * Template to operator << (print) usend to std::pair. 
  */
-#define M_PAIR(lhs, rhs) std::make_pair(lhs, rhs)
+template <typename T, typename U>
+std::ostream& operator<< (std::ostream &out, const std::pair<T,U> &pair) {
+    out << pair.first << ";" << std::to_string(pair.second);
+    return out;
+}
 
 /**
  * A bunch of result_t
  */
-typedef std::vector<result_t>     results_t;
+typedef std::vector<result_t> results_t;
 
 /**
  * Position is a class that defines a 3D position.

@@ -50,7 +50,7 @@ cleanAll:
 
 .PHONY: runTest
 runTest:
-	../bin/$(BFILE) -c 3 -o 3 -r 1 -t 1
+	../bin/$(BFILE) -c 3 -o 3 -r 1 -t 1 -f ../bin/results.csv
 
 .PHONY: compileAndTest
 compileAndTest:
