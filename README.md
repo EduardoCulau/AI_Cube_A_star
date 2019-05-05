@@ -68,4 +68,4 @@ And you can change the threshold that make the average:
 
 After that, you can run the python script and get the graph. An example is:
 
-![alt text](https://github.com/EduardoCulau/AI_Cube_A_star/blob/master/results/grath_20_30_240000.png)
+![alt text](https://github.com/EduardoCulau/AI_Cube_A_star/blob/master/results/graph_20_30_240000.png)
