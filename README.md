@@ -51,22 +51,21 @@ make runTest -C src/
 
 ### Extract Results
 
-After run the code you can generate a grath with the results (Avg Time vs Distance).
-Todo that you need to edit the [computeCube.py)](../blob/master/computeCube.py).
+After run the code you can generate a graph with the results (Avg Time vs Distance).
+Todo that you need to edit the [computeCube.py](../blob/master/computeCube.py).
 
 You need to change the following parameter, matching with you use in the execution:
 
-*CUBE_SIZE 
-*OBSTRUCTIONS 
-*ROUTES  
-*THREADS 
-*PRE_COMPUTED_FILE
+- CUBE_SIZE 
+- OBSTRUCTIONS 
+- ROUTES  
+- THREADS 
+- PRE_COMPUTED_FILE
 
-And you can change the thresold that make the average:
+And you can change the threshold that make the average:
 
-*MIN_REPETITION
+- MIN_REPETITION
 
-After that, you can run the python script and get the grath.
-An example is:
+After that, you can run the python script and get the graph. An example is:
 
 ![alt text](https://github.com/EduardoCulau/AI_Cube_A_star/blob/master/results/grath_20_30_240000.png)
