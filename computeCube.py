@@ -9,7 +9,7 @@ CUBE_SIZE    = 20;
 OBSTRUCTIONS = 30;
 ROUTES       = 240_000;
 THREADS      = 8;
-FILE         = "./bin/results.csv"
+FILE         = "./results/results.csv"
 
 #Combine the arguments
 #executable = "./bin/cube" + "-c " + CUBE_SIZE + "-o " + OBSTRUCTIONS + "-r " + ROUTES + "-t " + THREADS + "-f " + FILE;
@@ -19,7 +19,7 @@ FILE         = "./bin/results.csv"
 #os.system(executable);
 
 #Pre computed file
-PRE_COMPUTED_FILE = "./bin/results_compact_20_30_240000.csv"
+PRE_COMPUTED_FILE = "./results/results_compact_20_30_240000.csv"
 
 #Define the data list
 data = []
