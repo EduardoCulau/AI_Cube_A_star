@@ -29,6 +29,8 @@ public:
         this->_start = start; this->_end = end; this->_id = id;
     }
 
+    /* Destructor */
+    ~Data() {_results.clear(); _results.shrink_to_fit();};
     /**
      * Gets for members.
      */
@@ -194,19 +196,51 @@ int main(int argc, char **argv)
     std::cout << std::endl << std::endl
               <<"-------------------------------------" << std::endl
               <<"              SOLUTIONS              " << std::endl
+              <<"    COST; REPETITION; AVG_TIME       " << std::endl
               <<"-------------------------------------" << std::endl;
 
-    /* Put results in a file to generate a grath later. */
+    /* Get the size of the datas */
+    int totalSize = 0;
+    for( auto d : datas)
+        totalSize += d.getResults().size();
+
+    /* Concatenate all datas in one */
+    results_t allResults; allResults.reserve(totalSize);
+    for( auto d : datas){
+        allResults.insert(allResults.end(), d.getResults().begin(), d.getResults().end() );
+    }
+
+    /* Delete the datas */
+    datas.clear(); datas.shrink_to_fit();
+
+    #ifdef PRINT_EXEC
+        /* Print all results */
+        for( auto r : allResults){
+            std::cout << r <<std::endl;
+        }
+    #endif
+
+    /* Compact the data */
+    compactResults_t compResults; compResults.resize(Setting::cubeSize()*4, compactResult_t(0,0,0.0));
+    for( auto r : allResults){
+        auto repet = std::get<1>(compResults[r.first]); auto time = std::get<2>(compResults[r.first]);
+        compResults[r.first] = compactResult_t(r.first, repet+1, (double) (time * repet + r.second)/(repet+1));
+    }
+
+    /* Put compact results in a file to generate a grath later. */
     std::ofstream csvFile;
     csvFile.open(Setting::file());
     if(csvFile.is_open()){
-        for( auto d : datas){
-            for( auto r : d.getResults()){
-                std::cout << r <<std::endl;
-                csvFile << r << std::endl;
-            }
+        for( auto cr : compResults){
+            /* Print all compact reulst */
+            std::cout << cr <<std::endl;
+            /* Put in the file */
+            csvFile << cr <<std::endl;
         }
     }
+
+    /* Cloese file */
+    csvFile.close();
 
     /* End */
     return 0;

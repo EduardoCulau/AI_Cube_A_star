@@ -13,6 +13,7 @@
 #include <mutex>
 #include <chrono>
 #include <fstream>
+#include <tuple>
 
 /* Defined by the compiler */
 //#define PRINT_EXEC
@@ -40,6 +41,11 @@ typedef size_t	axis_t;
 typedef std::pair<size_t, double> result_t;
 
 /**
+ * A bunch of result_t
+ */
+typedef std::vector<result_t> results_t;
+
+/**
  * Template to operator << (print) usend to std::pair. 
  */
 template <typename T, typename U>
@@ -49,9 +55,20 @@ std::ostream& operator<< (std::ostream &out, const std::pair<T,U> &pair) {
 }
 
 /**
- * A bunch of result_t
+ * Tuple <cost, repetition, time>
  */
-typedef std::vector<result_t> results_t;
+typedef std::tuple<size_t, size_t, double> compactResult_t;
+
+/**
+ * A bunch of compactResult_t
+ */
+typedef std::vector<compactResult_t> compactResults_t;
+
+template <typename T, typename U, typename V>
+std::ostream& operator<< (std::ostream &out, const std::tuple<T,U,V> &tuple) {
+    out << std::get<0>(tuple) << "; " << std::get<1>(tuple) << "; " << std::to_string(std::get<2>(tuple));
+    return out;
+}
 
 /**
  * Position is a class that defines a 3D position.

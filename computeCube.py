@@ -16,8 +16,16 @@ FILE		 = "./bin/results.csv"
 #Call the executable
 #os.system(executable);
 
+#Pre computed file
+PRE_COMPUTED_FILE = "./bin/results_20_30_240000.csv"
+
+#Define the data list
+data = []
+
 #Open the csvFile
-with open(FILE, 'r') as csvFile:
+with open(PRE_COMPUTED_FILE, 'r') as csvFile:
 	readCSV = csv.reader(csvFile, delimiter=';');
+	c = 0;
 	for row in readCSV:
-		print(row);
+		data.append((int(row[0]), float(row[1])));
+		c = c+1; print(c);
